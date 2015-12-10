@@ -41,10 +41,6 @@ public class TitleAdapter extends BaseAdapter {
         this.titleInfos=titleInfos;
         this.context=context;
         requestQueue= Volley.newRequestQueue(context);
-        utils=new BitmapUtils(context);
-        utils.configDefaultLoadFailedImage(R.mipmap.noimage);
-        utils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
-        
     }
     @Override
     public int getCount() {
@@ -103,7 +99,7 @@ public class TitleAdapter extends BaseAdapter {
         }
         titleInfo=(TitleInfo) getItem(position);
         if(titleInfo!=null&&titleInfo.getContentimg()!=null){
-            Glide.with(context).load(titleInfo.getContentimg()).error(R.mipmap.noimage).into(viewHolder.img1);
+            Glide.with(context).load(titleInfo.getContentimg()).error(R.color.colorPrimary).into(viewHolder.img1);
         }
         viewHolder.title.setText(titleInfo.getTitle());
         viewHolder.name.setText(titleInfo.getUsername());
