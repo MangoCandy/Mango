@@ -1,0 +1,56 @@
+<RelativeLayout
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ydwj.News.MangoWe">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/askTitleAgain"
+            android:background="#2e2e2e"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center">
+            <TextView
+                android:textColor="#ffff"
+                android:text="点击尝试刷新"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="#51333333"></View>-->
+        <android.support.design.widget.TabLayout
+            app:tabIndicatorHeight="4dp"
+            android:id="@+id/show_types"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            ></android.support.design.widget.TabLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#51d6d6d6"></View>
+        <android.support.v4.view.ViewPager
+            android:layout_below="@id/show_types"
+            android:id="@+id/main_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:drawingCacheQuality="low"
+            ></android.support.v4.view.ViewPager>
+    </LinearLayout>
+    <ImageView
+        android:layout_centerInParent="true"
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/loading"/>
+</RelativeLayout>

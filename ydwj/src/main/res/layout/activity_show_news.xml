@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ydwj.News.ShowNews">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/videoview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"></LinearLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary"
+        android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+    <ProgressBar
+        android:layout_below="@id/toolbar"
+        android:progressDrawable="@drawable/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:id="@+id/progressBar"
+        android:layout_centerHorizontal="true" />
+    <WebView
+        android:layout_below="@id/toolbar"
+        android:paddingTop="80dp"
+        android:id="@+id/show_news"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"></WebView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="38dp"
+        app:backgroundTint="#ffffff"
+        app:borderWidth="2dp"
+        android:src="@android:drawable/ic_menu_edit"
+        ></android.support.design.widget.FloatingActionButton>
+
+    <RelativeLayout
+        android:id="@+id/fullscreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+</RelativeLayout>

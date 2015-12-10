@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/weixin"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
+    <RelativeLayout
+        android:id="@+id/fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar"
+        ></RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/bottom_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bottom_backgroud">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/btn_alarm"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:id="@+id/alarm"
+                    android:src="@drawable/btn_home_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="一键报警"
+                          style="@style/bottom_textstyle"
+                />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_news_we"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/news_we"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/news_we"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="社区日报"
+                          style="@style/bottom_textstyle"
+                />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_personal"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/personl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/personal_setting"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="个人中心"
+                          style="@style/bottom_textstyle"
+                />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/itemclick">
+    <ImageView android:id="@+id/show_title_img"
+		android:layout_marginLeft="5dp"
+		android:minWidth="100dp"
+		android:minHeight="50dp"
+	    android:layout_width="100dp"
+		android:layout_height="80dp"
+	    android:maxHeight="80dp"
+		android:scaleType="centerCrop"
+        android:paddingRight="8dp"
+	    />
+    <TextView android:id="@+id/show_title"
+		android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/show_title_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:maxEms="100"
+        android:ellipsize="none"
+        android:text="asdasdasd"
+        android:textStyle="bold"
+        />
+
+	<TextView
+		android:layout_marginBottom="15dp"
+        android:textColor="#546e7a"
+	    android:id="@+id/show_name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+        android:text="mangocandy"
+        android:layout_toRightOf="@+id/show_title_img"
+        android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/show_url"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

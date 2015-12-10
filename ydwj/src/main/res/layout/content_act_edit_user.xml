@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ydwj.Setting.Act_editUser"
+    tools:showIn="@layout/activity_act_edit_user">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/edit_user_font"
+            android:text="登陆账号"
+            android:maxWidth="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/edit_user_font"
+            android:text="dashuaibi"
+            android:maxWidth="200dp"
+            android:id="@+id/loginname"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+                android:textSize="@dimen/edit_user_font"
+                android:text="用户昵称"
+                android:maxWidth="200dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        <TextView
+                android:textSize="@dimen/edit_user_font"
+                android:text="dashuaibi"
+                android:maxWidth="200dp"
+                android:id="@+id/username"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    //家庭住址
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/iconfont_zhuzhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+                android:textSize="@dimen/edit_user_font"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="家庭住址"/>
+        <TextView
+            android:id="@+id/address"
+            android:textSize="@dimen/edit_user_font"
+            android:text="岳麓区"
+            android:maxWidth="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    //身份证号码
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_idcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/edit_user_font"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="身份证号码"/>
+        <TextView
+            android:id="@+id/id_card"
+            android:textSize="@dimen/edit_user_font"
+            android:text="岳麓区"
+            android:maxWidth="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    //联系方式
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/edit_user_font"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="联系方式"/>
+        <TextView
+            android:id="@+id/tel1"
+            android:textSize="@dimen/edit_user_font"
+            android:text="岳麓区"
+            android:maxWidth="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    //其他联系方式
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/edit_user_font"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="备用手机号码"/>
+        <TextView
+            android:id="@+id/tel2"
+            android:textSize="@dimen/edit_user_font"
+            android:text="岳麓区"
+            android:maxWidth="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    //邮箱
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/iconfont_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/edit_user_font"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="邮箱地址"/>
+        <TextView
+            android:id="@+id/email"
+            android:textSize="@dimen/edit_user_font"
+            android:text="岳麓区"
+            android:maxWidth="0dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

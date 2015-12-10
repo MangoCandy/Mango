@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">智慧社区</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_fullscreen">智慧社区</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_register">Register</string>
+    <string name="No_account"><u>没有账号</u></string>
+    <string name="title_activity_comment">Comment</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_act_edit_user">我的信息</string>
+    <string name="title_activity_act_edit_user_info">修改资料</string>
+</resources>

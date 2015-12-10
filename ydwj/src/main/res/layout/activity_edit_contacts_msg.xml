@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@+id/scrollView"
+    android:background="#ffffff"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ydwj.alarm.Act_contacts_msg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#c1646464"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="触发紧急按钮将会将信息群发至下列联系人"/>
+    </LinearLayout>
+    <View
+        android:background="#4b818181"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:dividerHeight="1dp"
+            android:divider="#93d3d4d4"
+            android:id="@+id/show_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></ListView>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_add_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iconfont_add"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="43dp"
+            app:backgroundTint="#ffffff"/>
+    </RelativeLayout>
+</LinearLayout>

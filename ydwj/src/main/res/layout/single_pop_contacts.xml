@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/layout_single_contact" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:src="@drawable/btn_single_contacts">
+    <ImageView
+        android:id="@+id/single_contact_bg"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/btn_single_contacts"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
+    <TextView
+        android:layout_marginLeft="15dp"
+        android:id="@+id/single_contact_name"
+        android:text="姓名"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_marginRight="15dp"
+        android:id="@+id/single_contact_call"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/contacts_callbtn_size"
+        android:layout_height="@dimen/contacts_callbtn_size"
+        android:background="@drawable/circle"
+        android:src="@mipmap/icon_call"/>
+</RelativeLayout>
