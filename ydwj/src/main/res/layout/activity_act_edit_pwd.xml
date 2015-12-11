@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/oldPwd"
-                android:hint="请输入旧密码"
+                android:hint="请输入原始密码"
                 style="@style/materialtext"
                 app:met_floatingLabel="normal"
                 android:inputType="textPassword"

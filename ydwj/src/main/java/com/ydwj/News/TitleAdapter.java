@@ -99,7 +99,7 @@ public class TitleAdapter extends BaseAdapter {
         }
         titleInfo=(TitleInfo) getItem(position);
         if(titleInfo!=null&&titleInfo.getContentimg()!=null){
-            Glide.with(context).load(titleInfo.getContentimg()).error(R.color.colorPrimary).into(viewHolder.img1);
+            Glide.with(context).load(titleInfo.getContentimg()).error(R.color.noimage).into(viewHolder.img1);
         }
         viewHolder.title.setText(titleInfo.getTitle());
         viewHolder.name.setText(titleInfo.getUsername());

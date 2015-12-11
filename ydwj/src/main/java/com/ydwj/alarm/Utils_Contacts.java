@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.ProgressBar;
+
 import android.widget.Toast;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonArray;
+
 import com.lidroid.xutils.DbUtils;
-import com.lidroid.xutils.db.sqlite.WhereBuilder;
+
 import com.lidroid.xutils.exception.DbException;
 import com.ydwj.News.Utils;
 import com.ydwj.bean.Contacts;
