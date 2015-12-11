@@ -9,7 +9,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/askTitleAgain"
@@ -24,15 +23,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="2dp"-->
-        <!--android:background="#51333333"></View>-->
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tablayout_height"
+        android:background="#42454d"></LinearLayout>
         <android.support.design.widget.TabLayout
-            app:tabIndicatorHeight="4dp"
+            android:fitsSystemWindows="true"
             android:id="@+id/show_types"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            app:tabIndicatorHeight="5dp"
+            android:background="#42454d"
+            app:tabIndicatorColor="#acf2f2f2"
+            app:tabTextColor="#d7d7d7"
+            app:tabSelectedTextColor="#fff"
             ></android.support.design.widget.TabLayout>
         <View
             android:layout_width="match_parent"

@@ -31,6 +31,7 @@
                 app:met_floatingLabel="normal"
                 />
             <com.rengwuxian.materialedittext.MaterialEditText
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tel1"
@@ -42,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tel2"
-                android:hint="其他联系方式"
+                android:hint="备用联系方式"
                 style="@style/materialtext"
                 app:met_floatingLabel="normal"
                 />
