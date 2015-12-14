@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -255,7 +256,8 @@ public class Setting extends Fragment {
 //            裁剪结果
             case PHOTO_ZOOM:
                 if(resultCode==Activity.RESULT_OK){
-                    updataImg();
+                    Bitmap bitmap=data.getParcelableExtra("data");
+                    updataImg(bitmap);
                 }
                 break;
         }
@@ -264,14 +266,14 @@ public class Setting extends Fragment {
     File head_img;//头像文件
     public void startPhotoZoom(String path) {
         String sdcard = Environment.getExternalStorageDirectory().toString();
-        File file = new File(sdcard + "/MangoWe/HeadImg");
+        File file = new File(sdcard + "/ydwj/HeadImg/");
         if (!file.exists()) {
             file.mkdirs();
         }
-        head_img=new File(sdcard + "/MangoWe/HeadImg/" + new Date().getTime() + ".png");
+        head_img=new File(sdcard + "/ydwj/HeadImg/" + new Date().getTime() + ".png");
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(Uri.fromFile(new File(path)),"image/png");
-        intent.putExtra("output",Uri.fromFile(head_img));
+        intent.setDataAndType(Uri.fromFile(new File(path)),"image/*");
+//        intent.putExtra("output",Uri.fromFile(head_img));
         intent.putExtra("outputFormat",Bitmap.CompressFormat.PNG);
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
@@ -286,18 +288,21 @@ public class Setting extends Fragment {
         startActivityForResult(intent, PHOTO_ZOOM);
     }
     //Bitmap转String
-    public String file2String(){
+    public String file2String(Bitmap bitmap){
         FileInputStream inputStream=null;
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
         byte[] buffer=null;
-        try {
-            inputStream=new FileInputStream(head_img);
-            buffer=new byte[inputStream.available()];
-            inputStream.read(buffer);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            inputStream=new FileInputStream(head_img);
+//            buffer=new byte[inputStream.available()];
+//            inputStream.read(buffer);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,baos);
+        buffer=baos.toByteArray();
         return Base64.encodeToString(buffer, Base64.DEFAULT);
     }
     String res;
@@ -319,9 +324,9 @@ public class Setting extends Fragment {
     };
 
     //上传图片到服务器
-    public void updataImg(){
+    public void updataImg(Bitmap bitmap){
         isAsking();
-        final String base64="data:image/png;base64,"+file2String();
+        final String base64="data:image/png;base64,"+file2String(bitmap);
 //        Log.i("asd",base64);
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {

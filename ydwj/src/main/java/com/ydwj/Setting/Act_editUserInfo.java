@@ -2,6 +2,7 @@ package com.ydwj.Setting;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -49,6 +50,7 @@ public class Act_editUserInfo extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setTitleTextColor(Color.WHITE);
         uu=new Utils_user(this);
 
     }
@@ -165,10 +167,8 @@ public class Act_editUserInfo extends AppCompatActivity {
                         userinfo.setUsers_tel2(tel2T);
                         (new Utils(context)).saveinfos(userinfo);
                         finish();
-                    }else if(jsonObject.getString("retCode").equals("01")){
-                        Toast.makeText(context,"修改失败",Toast.LENGTH_SHORT).show();
-
                     }else{
+                        Toast.makeText(context,jsonObject.getString("retMessage")+"",Toast.LENGTH_SHORT).show();
 
                     }
                 } catch (JSONException e) {

@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#00000000</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="noimage">#f53a41</color>
+    <color name="noimage">#c7c6c6</color>
     <color name="black_overlay">#66000000</color>
     <color name="btn_text">#494949</color>
+    <color name="toplayout_color">#313338</color>
 </resources>

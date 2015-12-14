@@ -64,6 +64,9 @@ public class Utils_Contacts {
                         }
                     }else{
                         Toast.makeText(context,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                        if(handler!=null){
+                            handler.sendEmptyMessage(0);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -301,12 +304,19 @@ public class Utils_Contacts {
     }
     public void Update_contacts(final Contacts contacts,final Handler handler){
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest request=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
+        final StringRequest request=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("asd",response);
-                contacts.setIsUpdate("0");
-                update(contacts);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(jsonObject.getString("retCode").equals("00")){
+                        contacts.setIsUpdate("0");
+                        update(contacts);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 if(handler!=null){
                     handler.sendEmptyMessage(0);

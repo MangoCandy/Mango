@@ -5,7 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ydwj.Setting.Act_editUser">
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/bor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/topimg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/edit_topbg"/>
+        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iconfont_edit"
+            app:layout_anchor="@id/bor"
+            app:layout_anchorGravity="end|bottom|"
+            app:backgroundTint="#3ac4e2"
+            />
+    </android.support.design.widget.CoordinatorLayout>
     <ScrollView
+        android:layout_below="@+id/coord"
             android:fadingEdge="none"
             android:overScrollMode="never"
             android:scrollbars="none"
@@ -15,11 +40,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/topimg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/edit_topbg"/>
             <include layout="@layout/content_act_edit_user"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -34,14 +54,4 @@
             android:background="@android:color/transparent"
             android:fitsSystemWindows="true"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/iconfont_edit"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentRight="true"
-         />
 </RelativeLayout>
