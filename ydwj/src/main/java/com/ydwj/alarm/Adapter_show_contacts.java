@@ -23,22 +23,14 @@ import java.util.Random;
 public class Adapter_show_contacts extends BaseAdapter {
     List<Contacts> contactses;
     Context context;
-    int r=45;
-    int g=120;
-    int b=180;
-
-    public int getR() {
-        return r;
-    }
-
-    public int getG() {
-        return g;
-    }
-
-    public int getB() {
-        return b;
-    }
-
+    int[] colors=new int[]{
+            R.color.contacts1,
+            R.color.contacts2,
+            R.color.contacts3,
+            R.color.contacts4,
+            R.color.contacts5,
+    };
+    Random random=new Random(9);
     public Adapter_show_contacts(List<Contacts> contactses, Context context){
         this.contactses=contactses;
         this.context=context;
@@ -46,6 +38,7 @@ public class Adapter_show_contacts extends BaseAdapter {
     @Override
     public int getCount() {
         return contactses.size();
+
     }
 
     @Override
@@ -88,12 +81,12 @@ public class Adapter_show_contacts extends BaseAdapter {
             BEIZHU="无备注";
         }
         //颜色代码
-        int color =Color.rgb(getR(), getG(), getB());
         String name=contacts.getCONTACT_NAME();
         viewHolder.beizhu.setText(BEIZHU);
         viewHolder.name.setText(name);
         viewHolder.name_head.setText(name.charAt(0)+"");
-        viewHolder.imageView.setBackgroundColor(color);//预留随机颜色
+
+        viewHolder.imageView.setImageResource(colors[random.nextInt(colors.length-1)]);//预留随机颜色
         viewHolder.num.setText(contacts.getCONTACT_NUM());
         return convertView;
     }

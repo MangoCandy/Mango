@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -88,15 +89,17 @@ public class Login extends AppCompatActivity {
         reg_btn=(Button)findViewById(R.id.btn_regs);
         reg_btn.setOnClickListener(onClickListener);
     }
-    ActionBar actionBar;
     public void initActionBar(){
-        actionBar=getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.action_bar_back);
-        TextView mtitle= (TextView) actionBar.getCustomView().findViewById(R.id.mtitle);
-        actionBar.getCustomView().findViewById(R.id.go_back).setOnClickListener(onClickListener);
-        
-        mtitle.setText("登录");
+        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.iconfont_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setTitle("登录");
     }
     View.OnClickListener onClickListener=new View.OnClickListener() {
         @Override
@@ -110,9 +113,6 @@ public class Login extends AppCompatActivity {
                     startActivity(intent);
                     overridePendingTransition(R.anim.alpha_add, R.anim.alpha_lose);
                     finish();
-                    break;
-                case R.id.go_back:
-                    onBackPressed();
                     break;
             }
         }
@@ -204,7 +204,7 @@ public class Login extends AppCompatActivity {
             for(int i=0;i<jsonArray.length();i++) {
                 contact = jsonArray.getJSONObject(i);
                 Contacts contacts = new Contacts();
-                contacts.setCID(contact.getString("id"));
+                contacts.setCID(contact.getString("person_id"));
                 contacts.setCONTACT_NUM(contact.getString("person_tel1"));
                 contacts.setCONTACT_NAME(contact.getString("person_name"));
                 contacts.setBEIZHU(contact.getString("person_beizhu"));

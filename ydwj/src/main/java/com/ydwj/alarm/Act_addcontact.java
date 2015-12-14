@@ -5,13 +5,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.*;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 
@@ -66,16 +72,36 @@ public class Act_addcontact extends AppCompatActivity {
     }
 
     public void initActionBar(){
-        ActionBar actionBar=getSupportActionBar();
-//        actionBar.setTitle("添加联系人");
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.action_bar_addcontacts);
-        LinearLayout btn_add= (LinearLayout) actionBar.getCustomView().findViewById(R.id.btn_add_from_c);
-        btn_add.setOnClickListener(onClickListener);
-        TextView mtitle= (TextView) actionBar.getCustomView().findViewById(R.id.mtitle);
-        actionBar.getCustomView().findViewById(R.id.go_back).setOnClickListener(onClickListener);
-        mtitle.setText("添加联系人");
+        android.support.v7.widget.Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.iconfont_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.add_local_contacts:
+                        showCts();
+                        break;
+                }
+                return true;
+            }
+        });
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_addcontacts,menu);
+        return true;
+    }
+
     public void initView(){
         edit_name=(EditText)findViewById(R.id.input_name);
         edit_num=(EditText)findViewById(R.id.input_num);
@@ -105,16 +131,6 @@ public class Act_addcontact extends AppCompatActivity {
                     if(checkinfo()&&!check_num_exist()){
                         save_contact();
                     }
-                    break;
-                case R.id.btn_add_from_c:
-                    if(builder==null){
-                        showCts();
-                    }else if(alertDialog!=null&&!alertDialog.isShowing()){
-                        showCts();
-                    }
-                    break;
-                case R.id.go_back:
-                    onBackPressed();
                     break;
             }
         }
@@ -183,10 +199,15 @@ public class Act_addcontact extends AppCompatActivity {
             adapter=new Adapter_show_contacts(contactses,context);
             show_contactses.setAdapter(adapter);
         }
-        getContacts();
-        adapter.notifyDataSetChanged();
+        Thread thread=new Thread(runnable);
+        thread.start();;
     }
-
+    Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+            getContacts();
+        }
+    };
 
 // 获取手机联系人
     private static final String[] PHONES_PROJECTION = new String[] {
@@ -230,14 +251,25 @@ public class Act_addcontact extends AppCompatActivity {
                 Contacts contacts=new Contacts();
                 contacts.setCONTACT_NAME(contactName);
                 contacts.setCONTACT_NUM(phoneNumber);
-                contacts.setBEIZHU(phoneNumber);
+                contacts.setBEIZHU(null);
                 contactses.add(contacts);
+                handler.sendEmptyMessage(0);
             }
         }
-        if(phoneCursor!=null){
-            phoneCursor.close();
-        }
+        phoneCursor.close();
     }
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    adapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+    };
     //显示dialog 联系人
     AlertDialog.Builder builder=null;
     AlertDialog alertDialog=null;

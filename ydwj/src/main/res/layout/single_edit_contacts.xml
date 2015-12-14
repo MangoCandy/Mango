@@ -22,10 +22,10 @@
             android:layout_width="70dp"
             android:layout_height="70dp">
             <com.ydwj.Utils.CircleImageView
+                android:layout_centerInParent="true"
                 android:id="@+id/name_head_bg"
-                android:background="#942158"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
             <TextView
                 android:id="@+id/name_head_text"
                 android:textColor="#fff"

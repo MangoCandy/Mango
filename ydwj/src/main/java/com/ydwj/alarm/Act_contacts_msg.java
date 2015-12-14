@@ -13,37 +13,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.ydwj.News.Utils;
 import com.ydwj.bean.Contacts;
 import com.ydwj.community.R;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 //
 public class Act_contacts_msg extends AppCompatActivity {
@@ -51,10 +40,8 @@ public class Act_contacts_msg extends AppCompatActivity {
     ListView layout_show_contacts;//显示联系人容器
     List<Contacts> contactses;//存放联系人
     Context context;
-    ScrollView scrollView;
     Adapter_show_contacts editAdapter;
-    ActionBar actionBar;
-    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context=this;
@@ -71,19 +58,37 @@ public class Act_contacts_msg extends AppCompatActivity {
         get_info_from_db();
     }
 
-    LinearLayout tool;
     public void initActionBar(){
-        actionBar=getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.action_bar_back);
-        TextView mtitle= (TextView) actionBar.getCustomView().findViewById(R.id.mtitle);
-        actionBar.getCustomView().findViewById(R.id.go_back).setOnClickListener(onClickListener);
-        mtitle.setText("紧急联系人");
-
-        tool=(LinearLayout) actionBar.getCustomView().findViewById(R.id.tool);
-        ((ImageView)tool.findViewById(R.id.toolImg)).setImageResource(R.mipmap.clouddownload);
-        tool.setOnClickListener(onClickListener);
+        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.iconfont_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setTitle("紧急联系人");
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.clouddown:
+                        cloudDown();
+                        break;
+                }
+                return false;
+            }
+        });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_contacts,menu);
+        return true;
+    }
+
     DbUtils dbUtils;
     DbUtils.DaoConfig config;
     public void initDb(){
@@ -104,8 +109,6 @@ public class Act_contacts_msg extends AppCompatActivity {
         btn_addcontacts.setOnClickListener(onClickListener);
         layout_show_contacts=(ListView)findViewById(R.id.show_contacts);
         layout_show_contacts.setOnItemClickListener(onItemClickListener);
-
-        progressBar=(ProgressBar)findViewById(R.id.progressBar);
     }
     AdapterView.OnItemClickListener onItemClickListener=new AdapterView.OnItemClickListener() {
         @Override
@@ -121,12 +124,6 @@ public class Act_contacts_msg extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.btn_add_contacts:
                     edit();
-                    break;
-                case R.id.go_back:
-                    onBackPressed();
-                    break;
-                case R.id.tool:
-                    cloudDown();
                     break;
             }
         }

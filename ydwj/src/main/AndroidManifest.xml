@@ -66,6 +66,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.ydwj.Login.Login"
+            android:label="用户登录"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.ydwj.Comment.Comment"

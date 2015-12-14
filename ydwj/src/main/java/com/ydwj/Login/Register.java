@@ -96,12 +96,16 @@ public class Register extends AppCompatActivity {
         uu=new Utils_user(context);
     }
     public void initActionBar(){
-        actionBar=getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.action_bar_back);
-        TextView mtitle= (TextView) actionBar.getCustomView().findViewById(R.id.mtitle);
-        actionBar.getCustomView().findViewById(R.id.go_back).setOnClickListener(onClickListener);
-        mtitle.setText("注册帐号");
+        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.iconfont_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setTitle("注册账号");
     }
     public void initTool(){
 //        setImg=(CircleImageView)findViewById(R.id.set_img);
@@ -161,9 +165,6 @@ public class Register extends AppCompatActivity {
                     }else{
                         haschecked.setSelected(true);
                     }
-                    break;
-                case R.id.go_back:
-                    onBackPressed();
                     break;
             }
         }

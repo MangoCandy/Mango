@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/clouddown"
+        android:title="云端下载联系人"
+        android:icon="@mipmap/clouddownload"
+        app:showAsAction="always"
+        >
+    </item>
+</menu>

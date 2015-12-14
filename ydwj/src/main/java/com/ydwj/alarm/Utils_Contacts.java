@@ -39,6 +39,9 @@ public class Utils_Contacts {
         StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                if(handler!=null){
+                    handler.sendEmptyMessage(0);
+                }
                 Log.i("asd", response);
                 JSONObject jsonObject=null;
                 try {
@@ -48,7 +51,7 @@ public class Utils_Contacts {
                         for(int i=0;i<jsonArray.length();i++){
                             JSONObject object=jsonArray.getJSONObject(i);
                             Contacts contacts=new Contacts();
-                            contacts.setCID(object.getString("id"));
+                            contacts.setCID(object.getString("person_id"));
                             contacts.setBEIZHU(object.getString("person_beizhu"));
                             contacts.setCONTACT_NAME(object.getString("person_name"));
                             contacts.setCONTACT_NUM(object.getString("person_tel1"));
@@ -58,15 +61,8 @@ public class Utils_Contacts {
                                 ((Act_contacts_msg)context).get_info_from_db();
                             }
                         }
-
-                        if(handler!=null){
-                            handler.sendEmptyMessage(0);
-                        }
                     }else{
                         Toast.makeText(context,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
-                        if(handler!=null){
-                            handler.sendEmptyMessage(0);
-                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

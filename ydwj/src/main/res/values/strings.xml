@@ -8,7 +8,7 @@
     <string name="title_activity_fullscreen">智慧社区</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_register">Register</string>
+    <string name="title_activity_register">账号注册</string>
     <string name="No_account"><u>没有账号</u></string>
     <string name="title_activity_comment">Comment</string>
 

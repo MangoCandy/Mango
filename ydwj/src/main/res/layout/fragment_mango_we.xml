@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/tablayout_height"
             android:background="@color/toplayout_color"></LinearLayout>
+        //网络异常出现刷新分类
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/askTitleAgain"
