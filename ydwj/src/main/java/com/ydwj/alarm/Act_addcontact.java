@@ -108,6 +108,7 @@ public class Act_addcontact extends AppCompatActivity {
         edit_beizhu=(EditText)findViewById(R.id.input_beizhu);
         button=(Button)findViewById(R.id.btn_confirm);
         button.setOnClickListener(onClickListener);
+        //弹窗显示联系人
         show_contactses=new ListView(this);
     }
     DbUtils dbUtils;

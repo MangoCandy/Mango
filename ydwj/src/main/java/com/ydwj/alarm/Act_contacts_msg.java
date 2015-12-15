@@ -25,6 +25,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ydwj.Login.Login;
 import com.ydwj.News.Utils;
 import com.ydwj.bean.Contacts;
 import com.ydwj.community.R;
@@ -185,9 +186,14 @@ public class Act_contacts_msg extends AppCompatActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                isAsking();//加载条
-                Utils_Contacts uc=new Utils_Contacts(context);
-                uc.Select_Contacts(handler);
+                if(utils.isLogin()){
+                    isAsking();//加载条
+                    Utils_Contacts uc=new Utils_Contacts(context);
+                    uc.Select_Contacts(handler);
+                }else{
+                    Intent intent=new Intent(context, Login.class);
+                    startActivity(intent);
+                }
             }
         });
         builder.show();

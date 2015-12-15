@@ -12,7 +12,7 @@ public class Userinfo {
     public static String USER_ID_CODE="id";
     public static String USER_is_homeowner_CODE="is_homeowner";
     public static String USER_ADDRESS_CODE="users_address";
-    public static String USER_TEL1_CODE="users_tel1";
+    public static String USER_TEL1_CODE="login_name";
     public static String USER_TEL2_CODE="users_tel2";
     public static String USER_PWD="login_pwd";
 
