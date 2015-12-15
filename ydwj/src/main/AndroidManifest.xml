@@ -73,10 +73,12 @@
             android:label="@string/title_activity_comment" />
         <activity
             android:name="com.ydwj.alarm.Act_contacts_msg"
+            android:label="紧急联系人"
             android:launchMode="singleTask" />
         <activity
             android:name="com.ydwj.alarm.Act_addcontact"
             android:launchMode="singleInstance"
+            android:label="添加联系人"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.ydwj.alarm.Act_show_cinfo"

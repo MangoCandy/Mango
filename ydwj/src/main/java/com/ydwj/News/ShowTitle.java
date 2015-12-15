@@ -160,7 +160,6 @@ public class ShowTitle extends Fragment {
                 //满足一定条件显示滚回顶部按钮
                 if(topIsShow==false&&view.getFirstVisiblePosition()>15){
                     topIsShow=true;
-                    gototop.startAnimation(AnimationUtils.loadAnimation(context,R.anim.gotop));
                     gototop.show();
                 }else if(topIsShow==true&&view.getFirstVisiblePosition()<15){
                     topIsShow=false;

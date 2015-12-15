@@ -256,12 +256,13 @@ public class Frg_alarm extends Fragment {
                     if(islogin){
                         Intent intent=new Intent(context,Act_contacts_msg.class);
                         startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.top_to_bo,R.anim.scale_small);
                     }else{
                         gotologin();
                     }
                     break;
                 case R.id.toplayout:
-                    if(islogin){
+                    if(utils.isLogin()){
 //                        topLayout.setVisibility(View.GONE);
                         size=noup_contactses.size();
                         isAsking();
@@ -273,12 +274,6 @@ public class Frg_alarm extends Fragment {
                                 uc.Update_contacts(contacts,handler);
                             }
                         }
-//                        handler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                checknoup();
-//                            }
-//                        },8000);
                     }else{
                         gotologin();
                     }

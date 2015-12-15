@@ -215,7 +215,7 @@ public class Setting extends Fragment {
                     break;
 //                设置头像
                 case R.id.set_head:
-                    if(usernameT.equals("")){
+                    if(usernameT.equals("")||!utils.isLogin()){
                         gotoLogin();
                     }else{
                         Intent i = new Intent(Intent.ACTION_PICK,

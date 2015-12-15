@@ -106,79 +106,81 @@ public class Utils_Contacts {
     //新增联系人
     boolean isSuccess=false;
     public void Add_contacts(final Contacts cts, final Handler handler){
-        RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //handler发送成功信息
-                if(handler!=null){
-                    handler.sendEmptyMessage(0);
-                }
-
-                Log.i("asd", response);
-                JSONObject jsonObject=null;
-                try {
-                    jsonObject=new JSONObject(response);
-                    if(jsonObject.getString("retCode").equals("00")){
-                        cts.setCID(jsonObject.getString("ret_id"));
-                        cts.setIsUpdate("0");
-
-                    }else if(jsonObject.getString("retCode").equals("01")){
-                        cts.setCID(jsonObject.getString("ret_id"));
-
-                    }else{
-
-                    }
-                    //如果号码存在则修改
-                    if(!check_num_existBytel(cts.getCONTACT_NUM())){
-                        save(cts);
-                    }else{
-                        update(cts);
+        if(utils.isLogin()){
+            RequestQueue requestQueue= Volley.newRequestQueue(context);
+            StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //handler发送成功信息
+                    if(handler!=null){
+                        handler.sendEmptyMessage(0);
                     }
 
-                    if(context.getClass()==Act_addcontact.class){
-                        ((Activity)context).finish();
+                    Log.i("asd", response);
+                    JSONObject jsonObject=null;
+                    try {
+                        jsonObject=new JSONObject(response);
+                        if(jsonObject.getString("retCode").equals("00")){
+                            cts.setCID(jsonObject.getString("ret_id"));
+                            cts.setIsUpdate("0");
+
+                        }else if(jsonObject.getString("retCode").equals("01")){//
+                            cts.setCID(jsonObject.getString("ret_id"));
+                        }else{
+
+                        }
+                        //如果号码存在则修改
+                        savects(cts);
+
+                        if(context.getClass()==Act_addcontact.class){
+                            ((Activity)context).finish();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                cts.setCID("-1");
-                Log.i("asd", error+"");
-                //如果号码已存在则修改 不然则保存
-                if(!check_num_existBytel(cts.getCONTACT_NUM())){
-                    save(cts);
-                }else{
-                    update(cts);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    cts.setCID("-1");
+                    savects(cts);
+                    Log.i("asd", error+"");
+                    //如果号码已存在则修改 不然则保存
+                    if(handler!=null){
+                        handler.sendEmptyMessage(1);
+                    }
                 }
-                if(context.getClass()==Act_addcontact.class){
-                    ((Activity)context).finish();
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params=new HashMap<String,String>();
+                    params.put("action","add_person");
+                    params.put("users_id",utils.getUserinfo().getID());
+                    params.put("person_name",cts.getCONTACT_NAME());
+                    params.put("person_tel1",cts.getCONTACT_NUM());
+                    params.put("person_beizhu",cts.getBEIZHU());
+                    return params;
                 }
-
-                if(handler!=null){
-                    handler.sendEmptyMessage(1);
-                }
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String,String>();
-                params.put("action","add_person");
-                params.put("users_id",utils.getUserinfo().getID());
-                params.put("person_name",cts.getCONTACT_NAME());
-                params.put("person_tel1",cts.getCONTACT_NUM());
-                params.put("person_beizhu",cts.getBEIZHU());
-                return params;
-            }
-        };
-        requestQueue.add(jsonObjectRequest);
-        requestQueue.start();
+            };
+            requestQueue.add(jsonObjectRequest);
+            requestQueue.start();
+        }else{
+            cts.setCID("-1");
+            savects(cts);
+        }
     }
 
+    public void savects(Contacts cts){
+        if(!check_num_existBytel(cts.getCONTACT_NUM())){
+            save(cts);
+        }else{
+            update(cts);
+        }
+        if(context.getClass()==Act_addcontact.class){
+            ((Activity)context).finish();
+        }
+    }
     DbUtils dbUtils;
     DbUtils.DaoConfig config;
     public void initDb(){
@@ -197,7 +199,7 @@ public class Utils_Contacts {
             if(dbUtils==null){
                 initDb();
             }
-            if(!check_num_exist_byTel(contacts)){
+            if(!check_num_exist_byTel(contacts)&&!check_num_exist(contacts.getCID())){
                 dbUtils.save(contacts);
             }else{
                 dbUtils.update(contacts);
@@ -299,50 +301,57 @@ public class Utils_Contacts {
         update(cts);
     }
     public void Update_contacts(final Contacts contacts,final Handler handler){
-        RequestQueue requestQueue= Volley.newRequestQueue(context);
-        final StringRequest request=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("asd",response);
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    if(jsonObject.getString("retCode").equals("00")){
-                        contacts.setIsUpdate("0");
-                        update(contacts);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+       if(utils.isLogin()){
+           RequestQueue requestQueue= Volley.newRequestQueue(context);
+           final StringRequest request=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
+               @Override
+               public void onResponse(String response) {
+                   Log.i("asd",response);
+                   try {
+                       JSONObject jsonObject=new JSONObject(response);
+                       if(jsonObject.getString("retCode").equals("00")){
+                           contacts.setIsUpdate("0");
+                           update(contacts);
+                       }
+                   } catch (JSONException e) {
+                       e.printStackTrace();
+                   }
 
-                if(handler!=null){
-                    handler.sendEmptyMessage(0);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                updateByDb(contacts);
-                Log.i("asd",error+"");
-                if(handler!=null){
-                    handler.sendEmptyMessage(1);
-                }
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String,String>();
-                params.put("action","update_person");
-                params.put("users_id",utils.getUserinfo().getID());
-                params.put("person_id",contacts.getCID());
-                params.put("person_beizhu",contacts.getBEIZHU());
-                params.put("person_name",contacts.getCONTACT_NAME());
-                params.put("person_tel1",contacts.getCONTACT_NUM());
-                return params;
+                   if(handler!=null){
+                       handler.sendEmptyMessage(0);
+                   }
+               }
+           }, new Response.ErrorListener() {
+               @Override
+               public void onErrorResponse(VolleyError error) {
+                   updateByDb(contacts);
+                   Log.i("asd",error+"");
+                   if(handler!=null){
+                       handler.sendEmptyMessage(1);
+                   }
+               }
+           }){
+               @Override
+               protected Map<String, String> getParams() throws AuthFailureError {
+                   Map<String,String> params=new HashMap<String,String>();
+                   params.put("action","update_person");
+                   params.put("users_id",utils.getUserinfo().getID());
+                   params.put("person_id",contacts.getCID());
+                   params.put("person_beizhu",contacts.getBEIZHU());
+                   params.put("person_name",contacts.getCONTACT_NAME());
+                   params.put("person_tel1",contacts.getCONTACT_NUM());
+                   return params;
 
-            }
-        };
-        requestQueue.add(request);
-        requestQueue.start();
+               }
+           };
+           requestQueue.add(request);
+           requestQueue.start();
+       }else{
+           updateByDb(contacts);
+           if(handler!=null){
+               handler.sendEmptyMessage(1);
+           }
+       }
     }
     //检测未上传联系人
     public List<Contacts> check_no_update(){

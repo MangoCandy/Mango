@@ -103,6 +103,11 @@ public class Act_contacts_msg extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.bo_to_top,R.anim.scale_small);
+    }
 
     public void initView(){
         btn_addcontacts=(FloatingActionButton)findViewById(R.id.btn_add_contacts);

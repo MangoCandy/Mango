@@ -5,9 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.widget.Toast;
 
+import com.ydwj.Login.Login;
+import com.ydwj.News.Utils;
 import com.ydwj.bean.MyApplication;
+import com.ydwj.bean.Userinfo;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -32,31 +37,61 @@ public class WellcomeActivity extends Activity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
 
-    private View mContentView;
-    private View mControlsView;
+
     private boolean mVisible;
     Context context=this;
+    Utils utils=new Utils(context);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context=this;
         setContentView(R.layout.activity_wellcome);
         MyApplication.addActivity(this);
         mVisible = true;
-        Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                jump();
+                login();
             }
         },1500);
 
     }
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    jump();
+                    break;
+                case 1:
+                    Bundle bundle=msg.getData();
+                    Toast.makeText(context,bundle.getString("res"),Toast.LENGTH_SHORT).show();
+                    if(bundle.getBoolean("login")){
+                        jump();
+                    }else{
+                        jump();
+                        Intent intent=new Intent(context, Login.class);
+                        startActivity(intent);
+                        finish();
+                        }
+                    break;
+            }
+        }
+    };
     public void jump(){
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.alpha_add,R.anim.alpha_lose);
         this.finish();
     }
+    public void login(){
+        Userinfo userinfo=utils.getUserinfo();
+        if(userinfo.getID()!=null&&!userinfo.getID().equals("")){
+            utils.login(handler,userinfo.getLogin_name(),userinfo.getLogin_pwd());
+        }else{
+            jump();
+        }
 
+    }
 }

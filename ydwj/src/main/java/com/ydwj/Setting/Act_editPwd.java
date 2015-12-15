@@ -1,6 +1,8 @@
 package com.ydwj.Setting;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +20,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.ydwj.Login.Login;
 import com.ydwj.News.Utils;
+import com.ydwj.bean.Userinfo;
 import com.ydwj.community.R;
 
 import org.json.JSONException;
@@ -29,9 +33,16 @@ import java.util.Map;
 
 public class Act_editPwd extends AppCompatActivity {
     Context context=this;
+    Utils utils=new Utils(context);
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //如果未登录 跳转至登录
+        if(!utils.isLogin()){
+            Intent intent=new Intent(this, Login.class);
+            startActivity(intent);
+            this.finish();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_edit_pwd);
         initView();
@@ -95,6 +106,9 @@ public class Act_editPwd extends AppCompatActivity {
                     JSONObject object=new JSONObject(response);
                     Toast.makeText(context,object.getString("retMessage"),Toast.LENGTH_SHORT).show();
                     if(object.getString("retCode").equals("00")){
+                        Userinfo userinfo=utils.getUserinfo();
+                        userinfo.setLogin_pwd(pwd1T);
+                        utils.saveinfos(userinfo);
                         finish();
                     }
                 } catch (JSONException e) {

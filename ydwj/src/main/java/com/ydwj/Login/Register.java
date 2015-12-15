@@ -1,16 +1,15 @@
 package com.ydwj.Login;
 
 import android.app.Activity;
-import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
+
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -18,13 +17,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.view.KeyEvent;
+
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -35,17 +34,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.*;
-import com.android.volley.toolbox.JsonObjectRequest;
+
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+
 import com.ydwj.Utils.CircleImageView;
 import com.ydwj.News.Utils;
-import com.ydwj.Utils.ProgressWheel;
+
 import com.ydwj.Utils.Utils_user;
-import com.ydwj.bean.Userinfo;
+
 
 import com.ydwj.community.R;
 
@@ -53,7 +50,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -184,7 +180,7 @@ public class Register extends AppCompatActivity {
             if(uu.checkname(usernameT)){
                 if(!username.equals("")&&!pwdT.equals("")&&!pwd2T.equals("")){
                     if(pwd2T.equals(pwdT)){
-                        if(haschecked.isSelected()){
+                        if(true){//haschecked.isSelected()是否阅读协议
                             if(isChoice&&checkother()){
                                 register();
                             }else if(!isChoice){

@@ -37,6 +37,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:maxLength="50"
                     android:hint="请输入手机号码登录"/>
             </LinearLayout>
             <LinearLayout
@@ -55,6 +56,7 @@
                     android:id="@+id/pwd_l"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="50"
                     android:hint="请输入用密码"/>
             </LinearLayout>
             <LinearLayout

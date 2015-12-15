@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ydwj.Login.Login;
 import com.ydwj.News.Utils;
 import com.ydwj.alarm.Act_addcontact;
 import com.ydwj.bean.Userinfo;
@@ -39,6 +40,12 @@ public class Act_editUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=this;
+        //如果未登录 跳转至登录
+        if(!utils.isLogin()){
+            Intent intent=new Intent(this, Login.class);
+            startActivity(intent);
+            this.finish();
+        }
         setContentView(R.layout.activity_act_edit_user);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

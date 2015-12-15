@@ -5,8 +5,22 @@ import android.content.SharedPreferences;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Base64;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.ydwj.alarm.Utils_Contacts;
+import com.ydwj.bean.Contacts;
 import com.ydwj.bean.Userinfo;
 
 import java.io.ByteArrayOutputStream;
@@ -19,7 +33,11 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Utils{
@@ -27,44 +45,22 @@ public class Utils{
 	public Utils(Context context){
 		this.context=context;
 	}
-	public JSONObject getNewsType(String path){
-		String string=null;
-		JSONObject jsonObject=null;
-		try {
-			URL url=new URL(path);
-			HttpURLConnection hConnection=(HttpURLConnection) url.openConnection();
-			hConnection.setConnectTimeout(5000);
-			hConnection.connect();
-			InputStream inputStream=hConnection.getInputStream();
-			byte[] buffer=readStream(inputStream);
-			string=new String(buffer);
-			hConnection.disconnect();
-			inputStream.close();
-			buffer=null;
-			jsonObject=new JSONObject(string);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return jsonObject;
-	}
+
 	public void saveinfos(Userinfo userinfo){
 		SharedPreferences sharedPreferences=context.getSharedPreferences("MangoWe", context.MODE_PRIVATE);
 		SharedPreferences.Editor editor=sharedPreferences.edit();
-		editor.putString("login_name",userinfo.getLogin_name());
-		editor.putString("id",userinfo.getID());
-		editor.putString("users_email",userinfo.getEmail());
-		editor.putString("users_address",userinfo.getUser_address());
-		editor.putString("users_name",userinfo.getUSER_NAME());
-		editor.putString("card_id",userinfo.getCard_id());
-		editor.putString("is_homeowner",userinfo.getIs_homeowner());
+		editor.putString(userinfo.USER_LOGINNAME_CODE,userinfo.getLogin_name());
+		editor.putString(userinfo.USER_ID_CODE,userinfo.getID());
+		editor.putString(userinfo.USER_EMAIL_CODE,userinfo.getEmail());
+		editor.putString(userinfo.USER_ADDRESS_CODE,userinfo.getUser_address());
+		editor.putString(userinfo.USER_NAME_CODE,userinfo.getUSER_NAME());
+		editor.putString(userinfo.USER_IDCARD_CODE,userinfo.getCard_id());
+		editor.putString(userinfo.USER_is_homeowner_CODE,userinfo.getIs_homeowner());
 		editor.putString(userinfo.USER_TEL1_CODE,userinfo.getUsers_tel1());
 		editor.putString(userinfo.USER_TEL2_CODE,userinfo.getUsers_tel2());
 		editor.putString(userinfo.USER_PWD,userinfo.getLogin_pwd());
 		editor.putString(userinfo.USER_IMG_CODE,userinfo.getUSER_IMG());
+		editor.putString("pwd",userinfo.getLogin_pwd());
 		editor.commit();
 	}
 	//读取Stream
@@ -87,7 +83,7 @@ public class Utils{
 		time=simpleDateFormat.format(new Date());
 		return time;
 	}
-	
+	//获取用户信息
 	public Userinfo getUserinfo(){
 		Userinfo userinfo=new Userinfo();
 		SharedPreferences sharedPreferences=context.getSharedPreferences("MangoWe",Context.MODE_PRIVATE);
@@ -105,6 +101,7 @@ public class Utils{
 		userinfo.setUSER_IMG(sharedPreferences.getString(userinfo.USER_IMG_CODE,""));
 		return userinfo;
 	}
+	//删除用户信息
 	public void deleteUserinfo(Context context){
 		SharedPreferences sharedPreferences=context.getSharedPreferences("MangoWe",Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -131,5 +128,111 @@ public class Utils{
 		{
 			return null;
 		}
+	}
+	//登录
+	String res=null;
+	public void login(final Handler handler, final String usernameT, final String pwdT){
+		RequestQueue requestQueue= Volley.newRequestQueue(context);
+		StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				JSONObject obj=null;
+				try {
+					obj=new JSONObject(response);
+					Log.i("asd",response);
+					if(obj.getString("retCode").equals("00")){
+						JSONObject jsonObject=obj.getJSONObject("userinfo");
+						Userinfo userinfo=new Userinfo();
+						userinfo.setCard_id(jsonObject.getString(userinfo.USER_IDCARD_CODE));
+						userinfo.setEmail(jsonObject.getString(userinfo.USER_EMAIL_CODE));
+						userinfo.setID(jsonObject.getString(userinfo.USER_ID_CODE));
+						userinfo.setIs_homeowner(jsonObject.getString(userinfo.USER_is_homeowner_CODE));
+						userinfo.setLogin_name(jsonObject.getString(userinfo.USER_LOGINNAME_CODE));
+						userinfo.setUser_address(jsonObject.getString(userinfo.USER_ADDRESS_CODE));
+						userinfo.setUSER_NAME(jsonObject.getString(userinfo.USER_NAME_CODE));
+						userinfo.setUsers_tel1(jsonObject.getString(userinfo.USER_TEL1_CODE));
+						userinfo.setUsers_tel2(jsonObject.getString(userinfo.USER_TEL2_CODE));
+						userinfo.setLogin_pwd(jsonObject.getString(userinfo.USER_PWD));
+						userinfo.setUSER_IMG((jsonObject.getString(userinfo.USER_IMG_CODE)).replaceAll("\\\\",""));
+						userinfo.setLogin_pwd(pwdT);
+						saveinfos(userinfo);
+						//读取紧急联系人
+						JSONArray jsonArray=obj.getJSONArray("emergency_contacts");
+						if(jsonArray.length()>0){saveContacts(jsonArray);}
+						res="登陆成功";
+						editLogin(true);
+					}else{
+						res=obj.getString("retMessage");
+						editLogin(false);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				if(handler!=null){
+					Message message=new Message();
+					message.what=1;
+					Bundle bundle=new Bundle();
+					bundle.putString("res",res);
+					if(res.equals("登陆成功")){
+						bundle.putBoolean("login",true);
+					}else{
+						deleteUserinfo(context);
+						bundle.putBoolean("login",false);
+					}
+					message.setData(bundle);
+					handler.sendMessage(message);
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				editLogin(false);
+				if(handler!=null){
+					handler.sendEmptyMessage(2);
+				}
+				Toast.makeText(context,"请检查网络设置",Toast.LENGTH_SHORT).show();
+			}
+		}){
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String,String> params=new HashMap<String,String>();
+				params.put("action","login");
+				params.put("loginName",usernameT);
+				params.put("loginPwd",pwdT);
+				return params;
+			}
+		};
+		requestQueue.add(jsonObjectRequest);
+		requestQueue.start();
+	}
+	//保存登陆返回联系人
+	public void saveContacts(JSONArray jsonArray){
+		try {
+			JSONObject contact;
+			final Utils_Contacts uc=new Utils_Contacts(context);
+			for(int i=0;i<jsonArray.length();i++) {
+				contact = jsonArray.getJSONObject(i);
+				Contacts contacts = new Contacts();
+				contacts.setCID(contact.getString("person_id"));
+				contacts.setCONTACT_NUM(contact.getString("person_tel1"));
+				contacts.setCONTACT_NAME(contact.getString("person_name"));
+				contacts.setBEIZHU(contact.getString("person_beizhu"));
+				uc.save(contacts);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	//启动时登陆状态
+	public void editLogin(Boolean bool){
+		SharedPreferences sharedPreferences=context.getSharedPreferences("MangoWe",Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor=sharedPreferences.edit();
+		editor.putBoolean("islogin",bool);
+		editor.commit();
+	}
+	//获取是否登录
+	public boolean isLogin(){
+		SharedPreferences sharedPreferences=context.getSharedPreferences("MangoWe",Context.MODE_PRIVATE);
+		return sharedPreferences.getBoolean("islogin",false);
 	}
 }

@@ -10,7 +10,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_register">账号注册</string>
     <string name="No_account"><u>没有账号</u></string>
-    <string name="title_activity_comment">Comment</string>
+    <string name="title_activity_comment">评论</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_act_edit_user">我的信息</string>

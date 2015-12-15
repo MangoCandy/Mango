@@ -13,11 +13,11 @@
     <color name="toolbar_color">#e51c23</color>
 
     //联系人随机颜色
-    <color name="contacts1">#e65100</color>
-    <color name="contacts2">#ff5722</color>
-    <color name="contacts3">#03a9f4</color>
-    <color name="contacts4">#5677fc</color>
-    <color name="contacts5">#009688</color>
+    <color name="contacts1">#b2ff7023</color>
+    <color name="contacts2">#b1ff3b66</color>
+    <color name="contacts3">#c31eb9ff</color>
+    <color name="contacts4">#ca54b450</color>
+    <color name="contacts5">#c635cfbb</color>
 
     ///////////
 </resources>

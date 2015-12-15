@@ -51,6 +51,7 @@ public class Adapter_contacts extends BaseAdapter {
         TextView name;
         ImageView call;
         ImageView bg;
+        TextView num;
         RelativeLayout relativeLayout;
     }
 
@@ -64,12 +65,14 @@ public class Adapter_contacts extends BaseAdapter {
             viewHolder.name = (TextView) convertView.findViewById(R.id.single_contact_name);
             viewHolder.call = (ImageView) convertView.findViewById(R.id.single_contact_call);
             viewHolder.bg = (ImageView) convertView.findViewById(R.id.single_contact_bg);
+            viewHolder.num=(TextView)convertView.findViewById(R.id.single_contact_num);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.bg.setImageResource(R.drawable.btn_single_contacts);
         viewHolder.name.setText(contacts.getCONTACT_NAME());
+        viewHolder.num.setText(contacts.getCONTACT_NUM());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
