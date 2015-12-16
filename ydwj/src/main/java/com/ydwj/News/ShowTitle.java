@@ -49,6 +49,7 @@ import java.util.Map;
 /**
  * Created by MangoCandy on 2015/9/20.
  */
+//单个新闻fragment
 public class ShowTitle extends Fragment {
     Context context;
 
@@ -58,8 +59,7 @@ public class ShowTitle extends Fragment {
     View view;
     private int typeID;//请求类型
     int currentPage=1;//当前页
-    String URL;
-    Utils utils=new Utils(context);
+
     ListView listView;
     List<TitleInfo> titleInfos;//标题集合
     TitleInfo titleInfo;
@@ -110,17 +110,6 @@ public class ShowTitle extends Fragment {
         isHiden=hidden;
         super.onHiddenChanged(hidden);
     }
-
-    //加载按钮旋转
-//    public void startloading(){
-//        loading.setVisibility(view.VISIBLE);
-//        loading.startAnimation(AnimationUtils.loadAnimation(context, R.anim.loading));
-//    }
-//    public void stoploading(){
-//        loading.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha_lose));
-//        loading.clearAnimation();
-//        loading.setVisibility(view.GONE);
-//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fmt_showtitles, container, false);
@@ -200,11 +189,9 @@ public class ShowTitle extends Fragment {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             y = event.getY();
-                            Log.i("asd", y + "");
                             break;
                         case MotionEvent.ACTION_MOVE:
                             y2 = event.getY();
-                            Log.i("asd", y2 + "");
                             break;
                     }
                     if (y - y2 > 200) {

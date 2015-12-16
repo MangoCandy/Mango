@@ -1,5 +1,6 @@
 package com.ydwj.News;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -53,38 +54,13 @@ public class ShowNews extends AppCompatActivity {
     int id=-1;
     WebView webView=null;
     public ShowNews(){}
-    float currentX=0;
-    float currentY=0;
     FloatingActionButton share;
     ProgressBar progressBar;
 
     File file;
-    TextView goback;
-    ImageView cut_screen;
-    ImageView src_share;
-    GestureDetector gestureDetector;
-    //初始化手势
-    public void initGes(){
-        gestureDetector=new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if(Math.abs(velocityX)<30){
-                    return true;
-                }
-                if(Math.abs(e1.getRawY()-e2.getRawY())<50){
-                    if(Math.abs(e1.getRawX()-e2.getRawX())>100){
-                        finish();
-                        return true;
-                    }
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initGes();
         setContentView(R.layout.activity_show_news);
         init();
         share= (FloatingActionButton) findViewById(R.id.share);
@@ -99,14 +75,13 @@ public class ShowNews extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.share:
                     gotoComment();
-//                    getBitmap();
                     break;
             }
         }
     };
     public void gotoComment(){
         Utils utils=new Utils(this);
-        if((utils.getUserinfo().getUSER_NAME()).equals("")){
+        if(!utils.isLogin()){
             Intent intent=new Intent(this, Login.class);
             startActivity(intent);
         }else{
@@ -168,17 +143,8 @@ public class ShowNews extends AppCompatActivity {
                 onBackPressed();
             }
         });
-//        actionBar.setCustomView(R.layout.action_bar_news);
-//        goback=(TextView)actionBar.getCustomView().findViewById(R.id.news_back);
-//        goback.setOnClickListener(onClickListener);
-//        cut_screen=(ImageView)actionBar.getCustomView().findViewById(R.id.news_screen);
-//        cut_screen.setOnClickListener(onClickListener);
-//        src_share=(ImageView)actionBar.getCustomView().findViewById(R.id.src_share);
-//        src_share.setOnClickListener(onClickListener);
-
         fullscreen=(RelativeLayout) findViewById(R.id.fullscreen);
     }
-    Context context=this;
 
     RelativeLayout fullscreen;
 
@@ -220,6 +186,7 @@ public class ShowNews extends AppCompatActivity {
     public void back(){
         onBackPressed();
     }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onResume() {
         super.onResume();

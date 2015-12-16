@@ -124,11 +124,13 @@ public class Frg_alarm extends Fragment {
     public void initView(){
         img_anim=(ImageView)view.findViewById(R.id.img_anim);
         img_anim.setAnimation(AnimationUtils.loadAnimation(context, R.anim.alarm_anim));
+        //报警按钮
         btn_alarm=(ImageView)view.findViewById(R.id.btn_if_alarm);
 //        circle_ready0=(ImageView)view.findViewById(R.id.ready0);
         btn_alarm.setOnLongClickListener(onLongClickListener);
         gotocontacts=(RelativeLayout)view.findViewById(R.id.go_to_editcontacts);
         gotocontacts.setOnClickListener(onClickListener);
+        //顶部提醒
         topLayout= (RelativeLayout) view.findViewById(R.id.toplayout);
         topLayout.setOnClickListener(onClickListener);
         toptext=(TextView)view.findViewById(R.id.toptext);
@@ -139,7 +141,7 @@ public class Frg_alarm extends Fragment {
             switch (v.getId()){
                 case R.id.btn_if_alarm:
                     if(islogin){
-                        //                    sendMsg(0,"");
+                        sendMsg(0,"");
                         initcontacts_pop();
                     }else{
                         gotologin();
@@ -186,15 +188,20 @@ public class Frg_alarm extends Fragment {
     public void initcontacts_pop(){
         contactses=getlist();
         if(contacts_pop==null){
-            cview=LayoutInflater.from(context).inflate(R.layout.pop_contacts,null);
-            dismiss_cpop=(FloatingActionButton)cview.findViewById(R.id.btn_dismiss_cpop);
+            cview=LayoutInflater.from(context).inflate(R.layout.pop_contacts,null);//整个pop view
+            dismiss_cpop=(FloatingActionButton)cview.findViewById(R.id.btn_dismiss_cpop);//dismiss按钮
             dismiss_cpop.setOnClickListener(onClickListener);
+
             send_all=(FloatingActionButton)cview.findViewById(R.id.btn_send_all);
-            send_all.setOnClickListener(onClickListener);
+            send_all.setOnClickListener(onClickListener);//群发按钮
+
             contacts_pop=new PopupWindow(cview, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
+
             showContacts=(ListView)cview.findViewById(R.id.pop_showcontact);
+
             contacts_pop.setAnimationStyle(R.style.popwin_alarm_style);
             layout_caontacts=(RelativeLayout)cview.findViewById(R.id.layout_showcontacts);
+
             cview.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -207,10 +214,13 @@ public class Frg_alarm extends Fragment {
             });
         }
         showContacts.setAdapter(new Adapter_contacts(contactses,context));
+
         cview.setAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha_add));
+
         contacts_pop.showAtLocation(getView(), Gravity.CENTER, 0, 0);
         btn_alarm.setAnimation(AnimationUtils.loadAnimation(context, R.anim.pop_contacts));
     }
+
     public void initSend(int mode){
         if(layout_send==null){
             layout_send=(RelativeLayout)cview.findViewById(R.id.layout_send);

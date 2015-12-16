@@ -62,6 +62,7 @@ public class WellcomeActivity extends Activity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+
                     jump();
                     break;
                 case 1:
@@ -76,6 +77,10 @@ public class WellcomeActivity extends Activity {
                         finish();
                         }
                     break;
+                case 2:
+                    Toast.makeText(context,"登陆失败,稍后请自行登录",Toast.LENGTH_SHORT).show();
+                    jump();
+                    break;
             }
         }
     };
@@ -85,6 +90,7 @@ public class WellcomeActivity extends Activity {
         overridePendingTransition(R.anim.alpha_add,R.anim.alpha_lose);
         this.finish();
     }
+    //在此静默登录 在需要登录操作的地方调用 utils.islogin 判断是否登录 未登录则跳转至登陆界面
     public void login(){
         Userinfo userinfo=utils.getUserinfo();
         if(userinfo.getID()!=null&&!userinfo.getID().equals("")){

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.ydwj.Utils.SwiperefreshWithLoadMore;
 import com.ydwj.bean.CommentBean;
 import com.ydwj.News.Utils;
 import com.ydwj.community.R;
@@ -39,33 +41,11 @@ public class Comment extends Activity {
     int currentPage=1;
     ListView showCom;
     ComAdapter adapter;
+    SwiperefreshWithLoadMore refreshLayout;
     //初始化手势
-    GestureDetector gestureDetector;
+
     boolean isLoad=false;
-    public void initGes(){
-        gestureDetector=new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if(Math.abs(velocityX)<30){
-                    return true;
-                }
-                if(Math.abs(e1.getRawY()-e2.getRawY())<50){
-                    if(Math.abs(e1.getRawX()-e2.getRawX())>100){
-                        finish();
-                        return true;
-                    }
-                }
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
-    }
-    View.OnTouchListener onTouchListener=new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            gestureDetector.onTouchEvent(event);
-            return false;
-        }
-    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,26 +58,23 @@ public class Comment extends Activity {
         initview();
         getComments(true);
     }
+
     public void initview(){
-        initGes();
         showCom=(ListView)findViewById(R.id.com_container);
-        showCom.setOnTouchListener(onTouchListener);
         adapter=new ComAdapter(commentBeanList,context);
         showCom.setAdapter(adapter);
-        showCom.addFooterView(getLayoutInflater().inflate(R.layout.foot_layout,null));
-        showCom.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
 
+        refreshLayout=(SwiperefreshWithLoadMore)findViewById(R.id.refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(view.getLastVisiblePosition()>=view.getCount()-1){
-                    if(!isLoad){
-                        isLoad=true;
-                        getComments(false);
-                    }
-                }
+            public void onRefresh() {
+                getComments(true);
+            }
+        });
+        refreshLayout.setOnLoadListener(new SwiperefreshWithLoadMore.OnLoadListener() {
+            @Override
+            public void load() {
+                getComments(false);
             }
         });
     }
@@ -150,57 +127,61 @@ public class Comment extends Activity {
     String item;
 
 //    提交
-public void post(){
-    RequestQueue requestQueue= Volley.newRequestQueue(this);
-    StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST,"http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-            Toast.makeText(context,"提交成功",Toast.LENGTH_SHORT).show();
-            try {
-                JSONObject jsonObject=new JSONObject(response);
-                if(jsonObject.getString("retCode").equals("00")){
-                    input.setText("");
-                    currentPage=1;
-                    input.clearFocus();
-                    getComments(true);
+    public void post(){
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST,"http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,"提交成功",Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(jsonObject.getString("retCode").equals("00")){
+                        input.setText("");
+                        currentPage=1;
+                        input.clearFocus();
+                        getComments(true);
+                    }
+                    Toast.makeText(context,jsonObject.getString("retMessage"),Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Toast.makeText(context,jsonObject.getString("retMessage"),Toast.LENGTH_SHORT).show();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Log.i("asd", response+"asd");
             }
-            Log.i("asd", response+"asd");
-        }
-    }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Toast.makeText(context,"提交失败",Toast.LENGTH_SHORT).show();
-        }
-    }){
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> params=new HashMap<String,String>();
-            params.put("action","add_comment");
-            params.put("users_id",utils.getUserinfo().getID());
-            params.put("news_id",id+"");
-            params.put("comment_contents",input.getText().toString());
-            return params;
-        }
-    };
-    requestQueue.add(jsonObjectRequest);
-    requestQueue.start();
-}
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"提交失败",Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String,String>();
+                params.put("action","add_comment");
+                params.put("users_id",utils.getUserinfo().getID());
+                params.put("news_id",id+"");
+                params.put("comment_contents",input.getText().toString());
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+        requestQueue.start();
+    }
     public void getComments(final boolean isFresh){
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoadingMore(false);
                 Log.i("asd",response+"123");
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     if(jsonObject.getString("retCode").equals("00")){
-                        currentPage++;
                         JSONArray jsonArray=jsonObject.getJSONArray("retData");
-                        if(isFresh){commentBeanList.clear();}//如果是刷新就清空
+                        if(isFresh){
+                            commentBeanList.clear();
+                            currentPage=1;}//如果是刷新就清空
+                        currentPage++;
                         for(int i=0;i<jsonArray.length();i++){
                             JSONObject object=jsonArray.getJSONObject(i);
                             CommentBean commentBean=new CommentBean();
@@ -212,6 +193,8 @@ public void post(){
                         }
                         adapter.notifyDataSetChanged();
                         isLoad=false;
+                    }else{
+                        Toast.makeText(context,jsonObject.getString("retMessage"),Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -220,6 +203,7 @@ public void post(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                refreshLayout.setRefreshing(false);
                 Toast.makeText(context, "获取失败", Toast.LENGTH_SHORT).show();
             }
         }){
@@ -228,8 +212,8 @@ public void post(){
                 Map<String,String> params=new HashMap<>();
                 params.put("action","comment_list");
                 params.put("news_id",id+"");
-                params.put("page",currentPage+"");
-                params.put("pageSize","5");
+                params.put("page",(isFresh==true?1:currentPage)+"");
+                params.put("pageSize","25");
                 return params;
             }
         };
