@@ -1,13 +1,18 @@
 package com.ydwj.News;
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ydwj.Service.Service_Download;
 import com.ydwj.alarm.Utils_Contacts;
 import com.ydwj.bean.Contacts;
 import com.ydwj.bean.Userinfo;
@@ -234,5 +240,62 @@ public class Utils{
 	public boolean isLogin(){
 		SharedPreferences sharedPreferences=context.getSharedPreferences("MangoWe",Context.MODE_PRIVATE);
 		return sharedPreferences.getBoolean("islogin",false);
+	}
+
+	//获取更新
+	public void askForUpdate(){
+		RequestQueue requestQueue=Volley.newRequestQueue(context);
+		StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				Log.i("asd",response+"123");
+				try {
+					JSONObject jsonObject=new JSONObject(response);
+					if(jsonObject.getString("retCode").equals("01")){
+						updateApp(jsonObject.getString("retMessage"),jsonObject.getString("retContent"),jsonObject.getString("url"));
+					}
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.i("asd",error+"234");
+			}
+		}){
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String,String>params=new HashMap<>();
+				params.put("action","android_version");
+				try {
+					params.put("version_number",context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionCode+"");
+				} catch (PackageManager.NameNotFoundException e) {
+					e.printStackTrace();
+				}
+				return params;
+			}
+		};
+		requestQueue.add(stringRequest);
+		requestQueue.start();
+	}
+	//询问更新
+	private void updateApp(String title, final String content, final String url){
+		AlertDialog.Builder builder=new AlertDialog.Builder(context);
+		builder.setTitle(title);
+		builder.setMessage(content);
+		builder.setPositiveButton("更新", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent=new Intent(context, Service_Download.class);
+				intent.putExtra("url",url);
+				intent.putExtra("path","");
+				context.startService(intent);
+
+			}
+		});
+		builder.setNegativeButton("取消",null);
+		builder.show();
 	}
 }

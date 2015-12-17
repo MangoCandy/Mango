@@ -1,6 +1,7 @@
 package com.ydwj.community;
 
 import android.content.Context;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,11 +17,11 @@ import android.widget.TextView;
 
 
 import com.ydwj.News.MangoWe;
+import com.ydwj.News.Utils;
 import com.ydwj.Setting.Setting;
 import com.ydwj.alarm.Frg_alarm;
 import com.lidroid.xutils.DbUtils;
-import com.ydwj.News.FragmentAdapter;
-import com.ydwj.alarm.Utils_Contacts;
+
 import com.ydwj.bean.MyApplication;
 import com.umeng.analytics.MobclickAgent;
 
@@ -49,6 +51,8 @@ public class MainActivity extends FragmentActivity {
     LinearLayout btn_home_personal;
     LinearLayout btn_home_news;
     List<Fragment> fragments;
+
+    Utils utils=new Utils(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,8 @@ public class MainActivity extends FragmentActivity {
         MyApplication.addActivity(this);
         initBottombar();
         initFragment(savedInstanceState);
+        //检查更新
+        utils.askForUpdate();
     }
 
     //初始化Fragment

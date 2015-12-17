@@ -97,6 +97,9 @@
             android:label="修改密码">
 
         </activity>
+        <service android:name="com.ydwj.Service.Service_Download"></service>
+
+
     </application>
 
 </manifest>

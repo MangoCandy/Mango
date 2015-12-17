@@ -1,25 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#3e9b58"
+    android:layout_height="match_parent"
     tools:context=".WellcomeActivity">
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/logo"
-        android:id="@+id/imageView2"
-        android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
-    <TextView
-        android:text="智慧社区"
-        android:textColor="#ffffff"
-        android:textSize="25dp"
-        android:textStyle="italic|bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/wellcome"
+        android:id="@+id/imageView2" />
+    <!--<TextView-->
+        <!--android:text="智慧社区"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="25dp"-->
+        <!--android:textStyle="italic|bold"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:id="@+id/textView" />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -36,9 +36,6 @@ public class WellcomeActivity extends Activity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
-
-
-    private boolean mVisible;
     Context context=this;
     Utils utils=new Utils(context);
     @Override
@@ -47,7 +44,6 @@ public class WellcomeActivity extends Activity {
         context=this;
         setContentView(R.layout.activity_wellcome);
         MyApplication.addActivity(this);
-        mVisible = true;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -276,7 +276,7 @@ public class Register extends AppCompatActivity {
                 params.put("loginName",numt);
                 params.put("loginPwd",pwdT);
                 params.put("users_tel1",numt);
-                params.put("user_name",usernameT);
+                params.put("users_name",usernameT);
                 if(isChoice){
                     if(homeaddrT!=null){
                         params.put("users_address",homeaddrT);
