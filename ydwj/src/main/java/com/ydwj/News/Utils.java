@@ -243,7 +243,7 @@ public class Utils{
 	}
 
 	//获取更新
-	public void askForUpdate(){
+	public void askForUpdate(final boolean silence){//是否静默检查
 		RequestQueue requestQueue=Volley.newRequestQueue(context);
 		StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
 			@Override
@@ -253,6 +253,10 @@ public class Utils{
 					JSONObject jsonObject=new JSONObject(response);
 					if(jsonObject.getString("retCode").equals("01")){
 						updateApp(jsonObject.getString("retMessage"),jsonObject.getString("retContent"),jsonObject.getString("url"));
+					}else{
+						if(!silence){
+							Toast.makeText(context,"已是最新版本",Toast.LENGTH_SHORT).show();
+						}
 					}
 
 				} catch (JSONException e) {
@@ -263,6 +267,9 @@ public class Utils{
 			@Override
 			public void onErrorResponse(VolleyError error) {
 				Log.i("asd",error+"234");
+				if(!silence){
+					Toast.makeText(context,"请检查网络或重试",Toast.LENGTH_SHORT).show();
+				}
 			}
 		}){
 			@Override

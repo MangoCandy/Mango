@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -98,11 +100,13 @@ public class Act_editPwd extends AppCompatActivity {
         }
     }
     public void post(){
+        isAsking();
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
+                    askdialog.dismiss();
                     JSONObject object=new JSONObject(response);
                     Toast.makeText(context,object.getString("retMessage"),Toast.LENGTH_SHORT).show();
                     if(object.getString("retCode").equals("00")){
@@ -119,7 +123,8 @@ public class Act_editPwd extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("asd",error+"");
+                askdialog.dismiss();
+                Toast.makeText(context,"请检查网络连接,稍后重试",Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -134,5 +139,17 @@ public class Act_editPwd extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
         requestQueue.start();
+    }
+    //请求网络时显示加载圈
+    AlertDialog.Builder askbuilder;
+    AlertDialog askdialog;
+    public void isAsking(){
+        if(askbuilder==null){
+            askbuilder=new AlertDialog.Builder(context);
+            askbuilder.setCancelable(false);
+            askbuilder.setView(R.layout.dialog_loading);
+        }
+        askdialog= askbuilder.show();
+        askdialog.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
     }
 }

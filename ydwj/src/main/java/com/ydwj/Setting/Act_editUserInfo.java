@@ -3,6 +3,7 @@ package com.ydwj.Setting;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -150,10 +151,12 @@ public class Act_editUserInfo extends AppCompatActivity {
     }
 
     public void editUser(){
+        isAsking();
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         StringRequest jsonObjectRequest=new StringRequest(Request.Method.POST, "http://app.cloud-hn.net/app/factory.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                askdialog.dismiss();
                 Log.i("asd", response);
                 JSONObject jsonObject=null;
                 try {
@@ -179,7 +182,8 @@ public class Act_editUserInfo extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i("asd", error+"");
-                Toast.makeText(context,"修改失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"请检查网络连接,稍后重试",Toast.LENGTH_SHORT).show();
+                askdialog.dismiss();
             }
         }){
             @Override
@@ -203,5 +207,17 @@ public class Act_editUserInfo extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.top_to_bo, R.anim.alpha_lose);
+    }
+    //请求网络时显示加载圈
+    AlertDialog.Builder askbuilder;
+    AlertDialog askdialog;
+    public void isAsking(){
+        if(askbuilder==null){
+            askbuilder=new AlertDialog.Builder(context);
+            askbuilder.setCancelable(false);
+            askbuilder.setView(R.layout.dialog_loading);
+        }
+        askdialog= askbuilder.show();
+        askdialog.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
     }
 }

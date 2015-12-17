@@ -83,6 +83,7 @@ public class Setting extends Fragment {
     LinearLayout delete_cache;//清除缓存
     LinearLayout editUser;//修改用户资料
     LinearLayout editpwd;//修改密码
+    LinearLayout appinfo;//查看软件信息
     CircleImageView user_img;
     String userimg;
     Bitmap headimg;
@@ -117,6 +118,9 @@ public class Setting extends Fragment {
 
         editpwd=(LinearLayout)view.findViewById(R.id.editPwd);
         editpwd.setOnClickListener(onClickListener);
+
+        appinfo=(LinearLayout)view.findViewById(R.id.appInfo);
+        appinfo.setOnClickListener(onClickListener);
     }
     public void initInfo(){
         userinfo=utils.getUserinfo();
@@ -233,6 +237,10 @@ public class Setting extends Fragment {
                     Intent i=new Intent(context,Act_editPwd.class);
                     startActivity(i);
                     getActivity().overridePendingTransition(R.anim.top_to_bo,R.anim.alpha_lose);
+                    break;
+                case R.id.appInfo:
+                    Intent intent1=new Intent(context,Act_AppInfo.class);
+                    startActivity(intent1);
                     break;
             }
         }

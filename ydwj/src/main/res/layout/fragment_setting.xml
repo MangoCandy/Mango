@@ -59,6 +59,7 @@
                         android:text="清空缓存"/>
             </LinearLayout>
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:id="@+id/loginTool"
                 android:layout_width="match_parent"
@@ -66,7 +67,6 @@
                 <LinearLayout
                     android:clickable="true"
                     android:background="@drawable/btn_border"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/editPwd"
                     android:padding="10dp"
                     android:gravity="center_vertical"
@@ -120,6 +120,25 @@
                         android:text="退出登录"/>
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/appInfo"
+            android:background="@drawable/btn_border"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/home_news"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用信息"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -27,7 +27,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- QQ、QQ空间所需权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
@@ -77,8 +76,8 @@
             android:launchMode="singleTask" />
         <activity
             android:name="com.ydwj.alarm.Act_addcontact"
-            android:launchMode="singleInstance"
             android:label="添加联系人"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.ydwj.alarm.Act_show_cinfo"
@@ -92,14 +91,14 @@
             android:name="com.ydwj.Setting.Act_editUserInfo"
             android:label="@string/title_activity_act_edit_user_info"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.ydwj.Setting.Act_editPwd"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="修改密码">
+        <activity
+            android:name="com.ydwj.Setting.Act_editPwd"
+            android:label="修改密码"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        </activity>
-        <service android:name="com.ydwj.Service.Service_Download"></service>
+        <service android:name="com.ydwj.Service.Service_Download" />
 
-
+        <activity android:name="com.ydwj.Setting.Act_AppInfo"></activity>
     </application>
 
 </manifest>

@@ -64,7 +64,7 @@ public class MainActivity extends FragmentActivity {
         initBottombar();
         initFragment(savedInstanceState);
         //检查更新
-        utils.askForUpdate();
+        utils.askForUpdate(true);
     }
 
     //初始化Fragment
