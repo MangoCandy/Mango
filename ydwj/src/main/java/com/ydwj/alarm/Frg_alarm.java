@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -72,6 +73,8 @@ public class Frg_alarm extends Fragment {
         uc=new Utils_Contacts(context);
         initDb();
     }
+
+    //短信相关
     public void initBroad(){
         context.registerReceiver(new BroadcastReceiver() {
             @Override
@@ -121,6 +124,8 @@ public class Frg_alarm extends Fragment {
             }
         }, new IntentFilter("DELIVERED_SMS_ACTION"));
     }
+
+
     public void initView(){
         img_anim=(ImageView)view.findViewById(R.id.img_anim);
         img_anim.setAnimation(AnimationUtils.loadAnimation(context, R.anim.alarm_anim));
@@ -206,8 +211,11 @@ public class Frg_alarm extends Fragment {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if(layout_send!=null&&layout_send.isShown()){
+//                        dismissInput();
                         layout_send.setVisibility(View.GONE);
                         layout_caontacts.setVisibility(View.VISIBLE);
+                        contacts_pop.dismiss();
+                        contacts_pop.showAtLocation(view,Gravity.CENTER_VERTICAL,0,0);
                     }
                     return false;
                 }
@@ -217,10 +225,15 @@ public class Frg_alarm extends Fragment {
 
         cview.setAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha_add));
 
-        contacts_pop.showAtLocation(getView(), Gravity.CENTER, 0, 0);
+//        contacts_pop.showAtLocation(getView(), Gravity.CENTER, 0, 0);
+        contacts_pop.showAtLocation(view,Gravity.CENTER_VERTICAL,0,0);
         btn_alarm.setAnimation(AnimationUtils.loadAnimation(context, R.anim.pop_contacts));
     }
+    public void dismissInput(){//收起键盘
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0,imm.HIDE_NOT_ALWAYS);
 
+    }
     public void initSend(int mode){
         if(layout_send==null){
             layout_send=(RelativeLayout)cview.findViewById(R.id.layout_send);
@@ -247,13 +260,13 @@ public class Frg_alarm extends Fragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.btn_dismiss_cpop:
+                case R.id.btn_dismiss_cpop://隐藏拨号界面
                     contacts_pop.dismiss();
                     break;
-                case R.id.btn_send_all:
+                case R.id.btn_send_all://群发界面按钮
                     initSend(SEND_MODE_ALL);
                     break;
-                case R.id.btn_send:
+                case R.id.btn_send://群发按钮
                     if(!edit_send.getText().toString().equals("")){
                         if(SEND_MODE==SEND_MODE_ALL){
                             sendMsg(0,edit_send.getText().toString());
@@ -262,7 +275,7 @@ public class Frg_alarm extends Fragment {
                         Toast.makeText(context,"信息不能为空",Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case R.id.go_to_editcontacts:
+                case R.id.go_to_editcontacts://跳转联系人界面
                     if(islogin){
                         Intent intent=new Intent(context,Act_contacts_msg.class);
                         startActivity(intent);
@@ -271,7 +284,7 @@ public class Frg_alarm extends Fragment {
                         gotologin();
                     }
                     break;
-                case R.id.toplayout:
+                case R.id.toplayout://顶部通知 未登录跳转登录 登录提示联系人位未 同步
                     if(utils.isLogin()){
 //                        topLayout.setVisibility(View.GONE);
                         size=noup_contactses.size();

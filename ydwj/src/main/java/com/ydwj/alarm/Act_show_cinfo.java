@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,7 +94,25 @@ public class Act_show_cinfo extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.edit_local_contacts:
+                        isEdit(true);
+                        break;
+                }
+                return true;
+            }
+        });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_editcontacts,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public void initView() {
         view_name = (TextView) findViewById(R.id.show_name);
         view_num = (TextView) findViewById(R.id.show_num);

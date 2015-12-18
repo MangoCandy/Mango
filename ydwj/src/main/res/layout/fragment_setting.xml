@@ -134,7 +134,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/home_news"/>
+                android:src="@mipmap/iconfont_info"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

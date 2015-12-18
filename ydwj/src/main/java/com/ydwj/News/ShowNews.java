@@ -13,11 +13,14 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +31,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ydwj.Comment.Comment;
 import com.ydwj.Login.Login;
 import com.ydwj.bean.MyApplication;
@@ -56,6 +61,7 @@ public class ShowNews extends AppCompatActivity {
     public ShowNews(){}
     FloatingActionButton share;
     ProgressBar progressBar;
+    Context context=this;
 
     File file;
     @Override
@@ -122,15 +128,32 @@ public class ShowNews extends AppCompatActivity {
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setBuiltInZoomControls(false);
         webView.getSettings().setSupportZoom(false);
-
+        webView.setOnLongClickListener(onLongClickListener);
         webView.loadUrl(url);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
 //        this.registerForContextMenu(webView);
-        webView.setOnLongClickListener(onLongClickListener);
         webView.setOnTouchListener(onTouchListener);
     }
-    android.support.v7.app.ActionBar actionBar;
+    View.OnLongClickListener onLongClickListener=new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+//            if (v instanceof WebView) {
+//                WebView.HitTestResult result = ((WebView) v).getHitTestResult();
+//                if (result != null) {
+//                    int type = result.getType();
+//                    if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+//                        imgurl = result.getExtra();
+//                        ImageView imageView=new ImageView(context);
+//                        Glide.with(context).load(imgurl).into(imageView);
+//                        PopupWindow popupWindow=new PopupWindow(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
+//                        popupWindow.showAtLocation(webView, Gravity.CENTER,0,0);
+//                    }
+//                }
+//            }
+            return true;
+        }
+    };
     public void initActionBar(){
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -199,127 +222,15 @@ public class ShowNews extends AppCompatActivity {
     View.OnTouchListener onTouchListener=new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-//            gestureDetector.onTouchEvent(event);
+
             return false;
         }
     };
 
     //长按保存图片
     private String imgurl = "";
-    View.OnLongClickListener onLongClickListener=new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            if (v instanceof WebView) {
-                WebView.HitTestResult result = ((WebView) v).getHitTestResult();
-                if (result != null) {
-                    int type = result.getType();
-                    if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
-                        imgurl = result.getExtra();
-                        initSnack("保存图片？", "保存", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                new SaveImage().execute();
-                            }
-                        });
-                    }
-                }
-            }
-            return false;
-        }
-    };
-    public void initSnack(String info,String actiontext,View.OnClickListener onClickListener){
-        Snackbar snackbar=Snackbar.make(webView,info,Snackbar.LENGTH_LONG);
-        snackbar.setActionTextColor(Color.RED);
-        snackbar.setAction(actiontext,onClickListener).show();
-    }
-//
-private class SaveImage extends AsyncTask<String, Void, String> {
-    @Override
-    protected String doInBackground(String... params) {
-        String result = "";
-        try {
-            String sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
-            file = new File(sdcard + "/MangoWe/Download");
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            String imgurl2="";
-            int idx = imgurl.lastIndexOf("fmt=");
-            imgurl2=imgurl.substring(0,imgurl.lastIndexOf("&"));
-            int endx=imgurl.lastIndexOf("&");
-            String ext = imgurl.substring(idx + 4, imgurl2.lastIndexOf("&tp"));
-            if(ext==null){
-                ext="jpg";
-            }
-            file = new File(sdcard + "/MangoWe/Download/" + new Date().getTime() + "."+ext);
-            InputStream inputStream = null;
-            URL url = new URL(imgurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(20000);
-            if (conn.getResponseCode() == 200) {
-                inputStream = conn.getInputStream();
-            }
-            byte[] buffer = new byte[400];
-            int len = 0;
-            FileOutputStream outStream = new FileOutputStream(file);
-            while ((len = inputStream.read(buffer)) != -1) {
-                outStream.write(buffer,0,len);
-            }
-            outStream.close();
-            result = "图片已保存至：" + file.getAbsolutePath();
-        } catch (Exception e) {
-            result = "保存失败！" + imgurl;
-        }
-        freashMediaStore(Uri.fromFile(file));
-        return result;
-    }
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-//            MsgBox("提示", result);
-        }
-    }
-    //        刷新媒体库
-    public void freashMediaStore(Uri uri){
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-    }
-    //截图
-    public  Bitmap getBitmap() {
-        String sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
-        file = new File(sdcard + "/MangoWe/Snapshot");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        int h = webView.getHeight();
-        Bitmap bitmap = null;
-        // 创建对应大小的bitmap
-        bitmap = Bitmap.createBitmap(webView.getWidth(), h,
-                Bitmap.Config.RGB_565);
-        final Canvas canvas = new Canvas(bitmap);
-        bitmap=webView.getDrawingCache();
-        String img_url=sdcard + "/MangoWe/Snapshot/"+new Date().getTime()+".jpg";
-        file=new File(img_url);
-        // 测试输出
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (null != out) {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                out.flush();
-                out.close();
 
-                freashMediaStore(Uri.fromFile(file));
-            }
-        } catch (IOException e) {
-            // TODO: handle exception
-        }
-        return bitmap;
-    }
+
     @Override
     protected void onPause() {
 //        webView.onPause();

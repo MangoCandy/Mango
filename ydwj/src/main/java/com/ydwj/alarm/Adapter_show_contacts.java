@@ -86,7 +86,7 @@ public class Adapter_show_contacts extends BaseAdapter {
         viewHolder.name.setText(name);
         viewHolder.name_head.setText(name.charAt(0)+"");
 
-        viewHolder.imageView.setImageResource(colors[random.nextInt(colors.length-1)]);//预留随机颜色
+        viewHolder.imageView.setImageResource(R.color.contacts5);//预留随机颜色
         viewHolder.num.setText(contacts.getCONTACT_NUM());
         return convertView;
     }

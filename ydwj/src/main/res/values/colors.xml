@@ -10,14 +10,14 @@
     //新闻顶部颜色
     <color name="toplayout_color">#313338</color>
     //toolbar颜色
-    <color name="toolbar_color">#e51c23</color>
+    <color name="toolbar_color">#e7de1117</color>
 
     //联系人随机颜色
     <color name="contacts1">#b2ff7023</color>
     <color name="contacts2">#b1ff3b66</color>
     <color name="contacts3">#c31eb9ff</color>
     <color name="contacts4">#ca54b450</color>
-    <color name="contacts5">#c635cfbb</color>
+    <color name="contacts5">#c62982a9</color>
 
     ///////////
 </resources>

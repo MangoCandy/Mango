@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/edit_local_contacts"
+        android:title="修改联系人"
+        android:icon="@mipmap/iconfont_edit"
+        app:showAsAction="always"></item>
+</menu>

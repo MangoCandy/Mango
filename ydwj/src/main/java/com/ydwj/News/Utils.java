@@ -252,7 +252,8 @@ public class Utils{
 				try {
 					JSONObject jsonObject=new JSONObject(response);
 					if(jsonObject.getString("retCode").equals("01")){
-						updateApp(jsonObject.getString("retMessage"),jsonObject.getString("retContent"),jsonObject.getString("url"));
+						boolean b=jsonObject.getString("even_odds").equals("2")?false:true;
+						updateApp(jsonObject.getString("retMessage"),jsonObject.getString("retContent"),jsonObject.getString("url"),b);
 					}else{
 						if(!silence){
 							Toast.makeText(context,"已是最新版本",Toast.LENGTH_SHORT).show();
@@ -288,7 +289,7 @@ public class Utils{
 		requestQueue.start();
 	}
 	//询问更新
-	private void updateApp(String title, final String content, final String url){
+	private void updateApp(String title, final String content, final String url,boolean odds){//odds是否强制更新
 		AlertDialog.Builder builder=new AlertDialog.Builder(context);
 		builder.setTitle(title);
 		builder.setMessage(content);
@@ -303,6 +304,10 @@ public class Utils{
 			}
 		});
 		builder.setNegativeButton("取消",null);
+		if(odds){
+			builder.setCancelable(false);
+			builder.setNegativeButton(null,null);
+		}
 		builder.show();
 	}
 }

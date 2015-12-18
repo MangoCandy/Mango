@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
@@ -19,6 +20,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.*;
 
 import com.android.volley.AuthFailureError;
@@ -38,6 +41,7 @@ import com.lidroid.xutils.exception.DbException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +56,7 @@ public class Act_addcontact extends AppCompatActivity {
     String name;
     String beizhu;
     Button button;//确认按钮
-    Context context;
+    private  Context context=this;
     ListView show_contactses;//显示本地联系人
     List<Contacts> contactses;
     Utils utils=new Utils(this);
@@ -63,7 +67,6 @@ public class Act_addcontact extends AppCompatActivity {
         initActionBar();
         initDb();
         initView();
-        context=this;
     }
 
     @Override
@@ -110,6 +113,17 @@ public class Act_addcontact extends AppCompatActivity {
         button.setOnClickListener(onClickListener);
         //弹窗显示联系人
         show_contactses=new ListView(this);
+        contactses=new ArrayList<Contacts>();
+        adapter=new Adapter_show_contacts(contactses,context);
+        show_contactses.setAdapter(adapter);
+        show_contactses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                edit_name.setText(contactses.get(position).getCONTACT_NAME());
+                edit_num.setText(contactses.get(position).getCONTACT_NUM());
+                alertDialog.dismiss();
+            }
+        });
     }
     DbUtils dbUtils;
     DbUtils.DaoConfig config;
@@ -193,15 +207,10 @@ public class Act_addcontact extends AppCompatActivity {
         return true;
     }
     //获取本地联系人
-    Adapter_show_contacts adapter;
+    private  static Adapter_show_contacts adapter;
     public void addContactstoview(){
-        if(adapter==null){
-            contactses=new ArrayList<Contacts>();
-            adapter=new Adapter_show_contacts(contactses,context);
-            show_contactses.setAdapter(adapter);
-        }
         Thread thread=new Thread(runnable);
-        thread.start();;
+        thread.start();
     }
     Runnable runnable=new Runnable() {
         @Override
@@ -230,6 +239,9 @@ public class Act_addcontact extends AppCompatActivity {
         Cursor phoneCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,PHONES_PROJECTION, null, null, ContactsContract.CommonDataKinds.Phone.SORT_KEY_ALTERNATIVE);
 
         if (phoneCursor != null) {
+            if(phoneCursor.getCount()<1){
+                handler.sendEmptyMessage(1);
+            }
             while (phoneCursor.moveToNext()) {
 
                 //得到手机号码
@@ -254,13 +266,13 @@ public class Act_addcontact extends AppCompatActivity {
                 contacts.setCONTACT_NUM(phoneNumber);
                 contacts.setBEIZHU(null);
                 contactses.add(contacts);
-                handler.sendEmptyMessage(0);
             }
         }
+        handler.sendEmptyMessage(0);
         phoneCursor.close();
     }
 
-    Handler handler=new Handler(){
+    final  Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -268,34 +280,29 @@ public class Act_addcontact extends AppCompatActivity {
                 case 0:
                     adapter.notifyDataSetChanged();
                     break;
+                case 1:
+                    alertDialog.dismiss();
+                    builder=new AlertDialog.Builder(context);
+                    builder.setMessage("未获取到本地联系人,请检查相关权限是否被禁止");
+                    builder.setTitle("未发现联系人");
+                    builder.setPositiveButton("确定",null);
+                    builder.show();
+                    break;
             }
         }
     };
     //显示dialog 联系人
-    AlertDialog.Builder builder=null;
-    AlertDialog alertDialog=null;
+    private  AlertDialog.Builder builder=null;
+    private  AlertDialog alertDialog=null;
     public void showCts(){
-        show_contactses=new ListView(this);
-        show_contactses.setAdapter(adapter);
-        show_contactses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                edit_name.setText(contactses.get(position).getCONTACT_NAME());
-                edit_num.setText(contactses.get(position).getCONTACT_NUM());
-                alertDialog.dismiss();
-            }
-        });
-        builder =new AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setView(show_contactses)
-                .setTitle("选择本地联系人")
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
-                    }
-                });
+        if(alertDialog==null){
+            builder =new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setView(show_contactses)
+                    .setTitle("选择本地联系人")
+                    .setNegativeButton("取消", null);
+            alertDialog=builder.show();
+        }else{alertDialog.show();}
         addContactstoview();
-        alertDialog=builder.show();
     }
 }

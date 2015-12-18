@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.ydwj.Setting.Act_AppInfo">
     <RelativeLayout
         android:background="@color/toolbar_color"
         android:layout_width="match_parent"
         android:layout_height="250dp">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="#fff"></android.support.v7.widget.Toolbar>
         <TextView
             android:id="@+id/version"
             android:text="asdasd"
