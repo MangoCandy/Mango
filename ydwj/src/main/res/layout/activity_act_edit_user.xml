@@ -26,6 +26,8 @@
             android:src="@mipmap/iconfont_edit"
             app:layout_anchor="@id/bor"
             app:layout_anchorGravity="end|bottom|"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             app:backgroundTint="#3ac4e2"
             />
     </android.support.design.widget.CoordinatorLayout>

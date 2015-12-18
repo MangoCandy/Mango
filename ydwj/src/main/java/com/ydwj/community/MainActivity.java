@@ -24,6 +24,7 @@ import com.lidroid.xutils.DbUtils;
 
 import com.ydwj.bean.MyApplication;
 import com.umeng.analytics.MobclickAgent;
+import com.ydwj.bean.Userinfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +66,15 @@ public class MainActivity extends FragmentActivity {
         initFragment(savedInstanceState);
         //检查更新
         utils.askForUpdate(true);
+        login();
     }
-
+    //在此静默登录 在需要登录操作的地方调用 utils.islogin 判断是否登录 未登录则跳转至登陆界面
+    public void login(){
+        Userinfo userinfo=utils.getUserinfo();
+        if(userinfo.getID()!=null&&!userinfo.getID().equals("")){
+            utils.login(null,userinfo.getLogin_name(),userinfo.getLogin_pwd());
+        }
+    }
     //初始化Fragment
     public void initFragment(Bundle bundle){
         fragmentManager=getSupportFragmentManager();

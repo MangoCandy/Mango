@@ -11,35 +11,49 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ListView
-            android:scrollbars="none"
-            android:divider="#00000000"
-            android:dividerHeight="20dp"
-            android:id="@+id/pop_showcontact"
-            android:layout_centerVertical="true"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"></ListView>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+                android:scrollbars="none"
+                android:divider="#00000000"
+                android:dividerHeight="20dp"
+                android:id="@+id/pop_showcontact"
+                android:layout_centerVertical="true"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"></ListView>
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/btn_dismiss_cpop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    app:backgroundTint="#fff"
+                    android:src="@mipmap/iconfont_close"
+                    />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/btn_send_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_dismiss_cpop"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:backgroundTint="#e12a2a"
+                    android:src="@mipmap/iconfont_qunfa"
+                    />
+            </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_dismiss_cpop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            app:backgroundTint="#fff"
-            android:src="@mipmap/iconfont_close"
-            />
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_send_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_dismiss_cpop"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            app:backgroundTint="#e12a2a"
-            android:src="@mipmap/iconfont_qunfa"
-            />
+        </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
         android:visibility="gone"

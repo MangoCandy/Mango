@@ -63,23 +63,28 @@
         <activity
             android:name="com.ydwj.Login.Register"
             android:label="@string/title_activity_register"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.ydwj.Login.Login"
             android:label="用户登录"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.ydwj.Comment.Comment"
-            android:label="@string/title_activity_comment" />
+            android:label="@string/title_activity_comment"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.ydwj.alarm.Act_contacts_msg"
             android:label="紧急联系人"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.ydwj.alarm.Act_addcontact"
             android:label="添加联系人"
             android:launchMode="singleInstance"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.ydwj.alarm.Act_show_cinfo"
             android:launchMode="singleTask"
@@ -100,7 +105,8 @@
         <service android:name="com.ydwj.Service.Service_Download" />
 
         <activity android:name="com.ydwj.Setting.Act_AppInfo"
-            android:label="应用信息"></activity>
+            android:label="应用信息"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

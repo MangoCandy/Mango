@@ -47,9 +47,10 @@ public class WellcomeActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                login();
+//                login();
+                jump();
             }
-        },1500);
+        },1000);
 
     }
     Handler handler=new Handler(){
