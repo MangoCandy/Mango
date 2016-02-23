@@ -176,7 +176,6 @@ public class MangoWe extends Fragment {
             }
         };
         requestQueue.add(stringRequest);
-        requestQueue.start();
     }
     public void getTypes(String json) {
         JSONArray jArray;

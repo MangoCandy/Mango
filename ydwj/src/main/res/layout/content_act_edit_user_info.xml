@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/confirm"
                 android:src="@mipmap/iconfont_tijiao"
+                app:elevation="0dp"
                 />
         </LinearLayout>
     </ScrollView>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="false">
-        <bitmap android:src="@mipmap/home_news"></bitmap>
+        <bitmap android:src="@mipmap/fuwu"></bitmap>
     </item>
     <item android:state_selected="true">
-        <bitmap android:src="@mipmap/home_news_pressed"></bitmap>
+        <bitmap android:src="@mipmap/fuwu_pressed"></bitmap>
     </item>
 </selector>

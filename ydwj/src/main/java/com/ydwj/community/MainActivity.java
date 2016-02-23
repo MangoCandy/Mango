@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.ydwj.News.MangoWe;
 import com.ydwj.News.Utils;
+import com.ydwj.Service.Frg_sqservice;
 import com.ydwj.Setting.Setting;
 import com.ydwj.alarm.Frg_alarm;
 import com.lidroid.xutils.DbUtils;
@@ -79,12 +79,12 @@ public class MainActivity extends FragmentActivity {
     public void initFragment(Bundle bundle){
         fragmentManager=getSupportFragmentManager();
         if(bundle==null){
-            frg_alarm=new Frg_alarm();
+            frg_mainnews=new Frg_sqservice();
             fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment, frg_alarm,"alarm");
+            fragmentTransaction.add(R.id.fragment, frg_mainnews,"news");
             fragmentTransaction.commit();
-            Selected(R.id.alarm);
-            currentFrg=frg_alarm;
+            Selected(R.id.news_we);
+            currentFrg=frg_mainnews;
         }else{
             //如果Bundle有就提取对象
             currentTabId=bundle.getInt("currentTabId");

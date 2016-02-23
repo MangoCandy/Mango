@@ -209,7 +209,6 @@ public class Utils{
 			}
 		};
 		requestQueue.add(jsonObjectRequest);
-		requestQueue.start();
 	}
 	//保存登陆返回联系人
 	public void saveContacts(JSONArray jsonArray){
@@ -286,7 +285,6 @@ public class Utils{
 			}
 		};
 		requestQueue.add(stringRequest);
-		requestQueue.start();
 	}
 	//询问更新
 	private void updateApp(String title, final String content, final String url,boolean odds){//odds是否强制更新

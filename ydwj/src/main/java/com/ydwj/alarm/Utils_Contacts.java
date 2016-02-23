@@ -87,7 +87,6 @@ public class Utils_Contacts {
             }
         };
         requestQueue.add(jsonObjectRequest);
-        requestQueue.start();
     }
     public boolean check_num_existBytel(String num){
         if(dbUtils==null){initDb();}
@@ -164,7 +163,6 @@ public class Utils_Contacts {
                 }
             };
             requestQueue.add(jsonObjectRequest);
-            requestQueue.start();
         }else{
             cts.setCID("-1");
             savects(cts);
@@ -255,7 +253,6 @@ public class Utils_Contacts {
             }
         };
         requestQueue.add(request);
-        requestQueue.start();
     }
 //    检测本地数据库是否存在联系人
     public boolean check_num_exist(String CID){
@@ -345,7 +342,6 @@ public class Utils_Contacts {
                }
            };
            requestQueue.add(request);
-           requestQueue.start();
        }else{
            updateByDb(contacts);
            if(handler!=null){

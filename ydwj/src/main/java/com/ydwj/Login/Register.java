@@ -295,7 +295,6 @@ public class Register extends AppCompatActivity {
             }
         };
         requestQueue.add(jsonObjectRequest);
-        requestQueue.start();
     }
 
     Handler handler=new Handler(){
