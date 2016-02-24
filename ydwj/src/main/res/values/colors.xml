@@ -10,7 +10,7 @@
     //新闻顶部颜色
     <color name="toplayout_color">#313338</color>
     //toolbar颜色
-    <color name="toolbar_color">#e7de1117</color>
+    <color name="toolbar_color">@color/colorPrimary</color>
 
     //联系人随机颜色
     <color name="contacts1">#b2ff7023</color>

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.ydwj.Service.Gonggao.Act_GongGao">
     <android.support.v7.widget.Toolbar
         app:titleTextColor="#fff"

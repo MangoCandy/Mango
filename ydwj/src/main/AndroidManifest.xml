@@ -48,7 +48,7 @@
             android:name="com.ydwj.News.ShowNews"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/myTheme" />
         <activity
             android:name=".WellcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -78,12 +78,12 @@
             android:name="com.ydwj.alarm.Act_contacts_msg"
             android:label="紧急联系人"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/myTheme" />
         <activity
             android:name="com.ydwj.alarm.Act_addcontact"
             android:label="添加联系人"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/myTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.ydwj.alarm.Act_show_cinfo"
