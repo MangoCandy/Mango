@@ -58,4 +58,14 @@
         <item name="android:singleLine">true</item>
         <item name="android:paddingTop">20dp</item>
     </style>
+    //toolbar 字体
+    <style name="toolbartext">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    //act样式
+    <style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 </resources>
