@@ -1,15 +1,13 @@
 package com.ydwj.alarm;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.ydwj.Utils.CircleImageView;
+import com.ydwj.MUtils.CircleImageView;
 import com.ydwj.bean.Contacts;
 import com.ydwj.community.R;
 

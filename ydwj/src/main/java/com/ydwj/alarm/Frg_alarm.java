@@ -14,6 +14,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -24,11 +25,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -36,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ydwj.Login.Login;
+import com.ydwj.MUtils.MUtils;
 import com.ydwj.News.Utils;
 import com.ydwj.bean.Contacts;
 import com.ydwj.bean.Userinfo;
@@ -146,7 +150,7 @@ public class Frg_alarm extends Fragment {
             switch (v.getId()){
                 case R.id.btn_if_alarm:
                     if(islogin){
-                        sendMsg(0,"");
+//                        sendMsg(0,"");
                         initcontacts_pop();
                     }else{
                         gotologin();
@@ -197,10 +201,7 @@ public class Frg_alarm extends Fragment {
             dismiss_cpop=(FloatingActionButton)cview.findViewById(R.id.btn_dismiss_cpop);//dismiss按钮
             dismiss_cpop.setOnClickListener(onClickListener);
 
-            send_all=(FloatingActionButton)cview.findViewById(R.id.btn_send_all);
-            send_all.setOnClickListener(onClickListener);//群发按钮
-
-            contacts_pop=new PopupWindow(cview, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
+            contacts_pop=new PopupWindow(cview, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
 
             showContacts=(ListView)cview.findViewById(R.id.pop_showcontact);
 
@@ -226,24 +227,14 @@ public class Frg_alarm extends Fragment {
         cview.setAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha_add));
 
 //        contacts_pop.showAtLocation(getView(), Gravity.CENTER, 0, 0);
-        contacts_pop.showAtLocation(view,Gravity.CENTER_VERTICAL,0,0);
+        contacts_pop.setHeight((new MUtils(context).getHeight())*9/11);
+        contacts_pop.showAtLocation(view,Gravity.BOTTOM,0,0);
         btn_alarm.setAnimation(AnimationUtils.loadAnimation(context, R.anim.pop_contacts));
     }
     public void dismissInput(){//收起键盘
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0,imm.HIDE_NOT_ALWAYS);
 
-    }
-    public void initSend(int mode){
-        if(layout_send==null){
-            layout_send=(RelativeLayout)cview.findViewById(R.id.layout_send);
-            btn_send=(Button)cview.findViewById(R.id.btn_send);
-            btn_send.setOnClickListener(onClickListener);
-            edit_send=(EditText)cview.findViewById(R.id.edit_send);
-        }
-        SEND_MODE=mode;
-        layout_caontacts.setVisibility(View.GONE);
-        layout_send.setVisibility(View.VISIBLE);
     }
     //获取联系人
     public List<Contacts> getlist(){
@@ -262,9 +253,6 @@ public class Frg_alarm extends Fragment {
             switch (v.getId()){
                 case R.id.btn_dismiss_cpop://隐藏拨号界面
                     contacts_pop.dismiss();
-                    break;
-                case R.id.btn_send_all://群发界面按钮
-                    initSend(SEND_MODE_ALL);
                     break;
                 case R.id.btn_send://群发按钮
                     if(!edit_send.getText().toString().equals("")){

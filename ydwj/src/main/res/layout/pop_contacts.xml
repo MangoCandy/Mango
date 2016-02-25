@@ -4,17 +4,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ec000000">
+    android:background="#f2f2f2">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/xian"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#4d393939"></LinearLayout>
     <RelativeLayout
+        android:layout_below="@+id/xian"
         android:id="@+id/layout_showcontacts"
         android:layout_above="@+id/layout_send"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <ListView
                 android:scrollbars="none"
                 android:divider="#00000000"
@@ -31,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <android.support.design.widget.FloatingActionButton
+                    android:layout_margin="5dp"
                     android:id="@+id/btn_dismiss_cpop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,23 +48,11 @@
                     app:backgroundTint="#fff"
                     android:src="@mipmap/iconfont_close"
                     />
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/btn_send_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_dismiss_cpop"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    app:backgroundTint="#e12a2a"
-                    android:src="@mipmap/iconfont_qunfa"
-                    />
             </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
-        android:visibility="gone"
         android:background="@drawable/bottom_backgroud"
         android:id="@+id/layout_send"
         android:layout_alignParentBottom="true"

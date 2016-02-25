@@ -6,7 +6,7 @@
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 >
-    <com.ydwj.Utils.CircleImageView
+    <com.ydwj.MUtils.CircleImageView
             android:layout_marginLeft="15dp"
             android:id="@+id/com_img"
             android:layout_width="40dp"

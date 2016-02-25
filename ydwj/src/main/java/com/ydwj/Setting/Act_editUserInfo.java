@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.ydwj.News.Utils;
-import com.ydwj.Utils.Utils_user;
+import com.ydwj.MUtils.Utils_user;
 import com.ydwj.bean.Userinfo;
 import com.ydwj.community.R;
 

@@ -1,21 +1,15 @@
-package com.ydwj.Utils;
+package com.ydwj.MUtils;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
-import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ydwj.community.R;
-
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2015/12/16.

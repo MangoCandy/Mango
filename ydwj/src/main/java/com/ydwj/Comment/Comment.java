@@ -13,11 +13,9 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.android.volley.*;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.ydwj.Utils.SwiperefreshWithLoadMore;
+import com.ydwj.MUtils.SwiperefreshWithLoadMore;
 import com.ydwj.bean.CommentBean;
 import com.ydwj.News.Utils;
 import com.ydwj.community.R;
@@ -25,9 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Comment extends Activity {

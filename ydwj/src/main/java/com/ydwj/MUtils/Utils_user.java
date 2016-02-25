@@ -1,9 +1,7 @@
-package com.ydwj.Utils;
+package com.ydwj.MUtils;
 
 import android.content.Context;
 import android.widget.Toast;
-
-import com.ydwj.News.Utils;
 
 /**
  * Created by Administrator on 2015/12/2.

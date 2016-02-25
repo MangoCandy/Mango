@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:background="#fff"
                 tools:context="com.ydwj.Comment.Comment">
-    <com.ydwj.Utils.SwiperefreshWithLoadMore
+    <com.ydwj.MUtils.SwiperefreshWithLoadMore
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    </com.ydwj.Utils.SwiperefreshWithLoadMore>
+    </com.ydwj.MUtils.SwiperefreshWithLoadMore>
     <RelativeLayout
             android:focusable="true"
             android:focusableInTouchMode="true"

@@ -38,10 +38,10 @@ import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import com.ydwj.Utils.CircleImageView;
+import com.ydwj.MUtils.CircleImageView;
 import com.ydwj.News.Utils;
 
-import com.ydwj.Utils.Utils_user;
+import com.ydwj.MUtils.Utils_user;
 
 
 import com.ydwj.community.R;
