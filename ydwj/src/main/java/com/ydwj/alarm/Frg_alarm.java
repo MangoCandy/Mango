@@ -90,8 +90,6 @@ public class Frg_alarm extends Fragment {
                                 .show();
                         if(edit_send!=null){
                             edit_send.setText("");
-                            layout_send.setVisibility(View.GONE);
-                            layout_caontacts.setVisibility(View.VISIBLE);
                         }
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
@@ -187,7 +185,6 @@ public class Frg_alarm extends Fragment {
     ListView showContacts;//显示联系人
     RelativeLayout layout_send;//发送框布局
     RelativeLayout layout_caontacts;//显示联系人布局
-    FloatingActionButton send_all;
     EditText edit_send;//短信编辑框
     Button btn_send;//发送按钮
     int SEND_MODE_ALL=0;//群发模式
@@ -208,19 +205,10 @@ public class Frg_alarm extends Fragment {
             contacts_pop.setAnimationStyle(R.style.popwin_alarm_style);
             layout_caontacts=(RelativeLayout)cview.findViewById(R.id.layout_showcontacts);
 
-            cview.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if(layout_send!=null&&layout_send.isShown()){
-//                        dismissInput();
-                        layout_send.setVisibility(View.GONE);
-                        layout_caontacts.setVisibility(View.VISIBLE);
-                        contacts_pop.dismiss();
-                        contacts_pop.showAtLocation(view,Gravity.CENTER_VERTICAL,0,0);
-                    }
-                    return false;
-                }
-            });
+            edit_send=(EditText) cview.findViewById(R.id.edit_send);
+
+            Button btn_send=(Button)cview.findViewById(R.id.btn_send);
+            btn_send.setOnClickListener(onClickListener);
         }
         showContacts.setAdapter(new Adapter_contacts(contactses,context));
 
@@ -256,9 +244,7 @@ public class Frg_alarm extends Fragment {
                     break;
                 case R.id.btn_send://群发按钮
                     if(!edit_send.getText().toString().equals("")){
-                        if(SEND_MODE==SEND_MODE_ALL){
-                            sendMsg(0,edit_send.getText().toString());
-                        }
+                        sendMsg(0,edit_send.getText().toString());
                     }else{
                         Toast.makeText(context,"信息不能为空",Toast.LENGTH_SHORT).show();
                     }

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ydwj.Service.BaoXiu.Act_BaoXiu;
 import com.ydwj.Service.Gonggao.Act_GongGao;
 import com.ydwj.community.R;
 
@@ -43,8 +44,8 @@ public class Adapter_buttongroup extends RecyclerView.Adapter<Adapter_buttongrou
                     case 0://公告
                         intent=new Intent(context, Act_GongGao.class);
                         break;
-                    case 1:
-
+                    case 1://社区报修
+                        intent=new Intent(context, Act_BaoXiu.class);
                         break;
                     case 3://公告
                         intent=new Intent(context, Act_GongGao.class);
