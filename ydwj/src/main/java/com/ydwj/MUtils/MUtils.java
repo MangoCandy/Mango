@@ -15,4 +15,9 @@ public class MUtils {
         DisplayMetrics displayMetrics=context.getResources().getDisplayMetrics();
         return displayMetrics.heightPixels;
     }
+
+    public int getWidth(){
+        DisplayMetrics displayMetrics=context.getResources().getDisplayMetrics();
+        return displayMetrics.widthPixels;
+    }
 }

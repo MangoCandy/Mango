@@ -1,14 +1,12 @@
 package com.ydwj.Service.BaoXiu;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ydwj.Service.Adapter_buttongroup;
-import com.ydwj.bean.Baoxiu;
+import com.ydwj.bean.Baoxiu_List;
 import com.ydwj.community.R;
 
 import java.util.List;
@@ -17,9 +15,9 @@ import java.util.List;
  * Created by Administrator on 2016/2/29.
  */
 public class Adapter_baoxiu_list extends RecyclerView.Adapter<Adapter_baoxiu_list.MViewHolder>  {
-    List<Baoxiu> baoxius;
+    List<Baoxiu_List> baoxius;
 
-    public Adapter_baoxiu_list(List<Baoxiu> baoxius){
+    public Adapter_baoxiu_list(List<Baoxiu_List> baoxius){
         this.baoxius=baoxius;
     }
     @Override
@@ -30,7 +28,7 @@ public class Adapter_baoxiu_list extends RecyclerView.Adapter<Adapter_baoxiu_lis
 
     @Override
     public void onBindViewHolder(MViewHolder holder, int position) {
-        Baoxiu baoxiu=baoxius.get(position);
+        Baoxiu_List baoxiu=baoxius.get(position);
         holder.title.setText(baoxiu.getTitle());
         holder.time.setText(baoxiu.getTime());
         holder.text.setText(baoxiu.getText());

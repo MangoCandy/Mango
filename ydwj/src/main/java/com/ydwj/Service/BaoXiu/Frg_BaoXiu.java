@@ -9,10 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ydwj.Ziliao;
 import com.ydwj.bean.Baoxiu;
+import com.ydwj.bean.Baoxiu_List;
 import com.ydwj.community.R;
 
 import java.util.ArrayList;
@@ -26,10 +27,10 @@ public class Frg_BaoXiu extends Fragment {
     View view;
     RecyclerView listview;
     Adapter_baoxiu_list adapter_baoxiu_list;
-    List<Baoxiu> baoxius=new ArrayList<>();
+    List<Baoxiu_List> baoxius=new ArrayList<>();
     Context context=getContext();
     TextView nothing;
-
+    int tp;
     public static Frg_BaoXiu newInstance(String type){
         Frg_BaoXiu frg_baoXiu=new Frg_BaoXiu();
         Bundle bundle=new Bundle();
@@ -43,6 +44,11 @@ public class Frg_BaoXiu extends Fragment {
         super.onAttach(context);
         Bundle bundle=getArguments();
         type=bundle.getString("type");
+        if(type.endsWith("公共报修")){
+            tp=0;
+        }else{
+            tp=1;
+        }
     }
 
     @Nullable
@@ -66,19 +72,11 @@ public class Frg_BaoXiu extends Fragment {
         adapter_baoxiu_list=new Adapter_baoxiu_list(baoxius);
         listview.setAdapter(adapter_baoxiu_list);
 
-        Baoxiu baoxiu=new Baoxiu();
-        baoxiu.setTitle("啊实打实大师的撒的");
-        baoxiu.setText("asdasdasdasd");
-        baoxiu.setTime("asdasdasd");
-        baoxiu.setLiuyan(3);
-        baoxius.add(baoxiu);
-        baoxius.add(baoxiu);
-        baoxius.add(baoxiu);
-        baoxius.add(baoxiu);
-        baoxius.add(baoxiu);
-        baoxius.add(baoxiu);
-        baoxius.add(baoxiu);
-        notifylist();
+        for(Baoxiu baoxiu: Ziliao.baoxius){
+            if(baoxiu.getType()==tp){
+
+            }
+        }
     }
 
     public void notifylist(){

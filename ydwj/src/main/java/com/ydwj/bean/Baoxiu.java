@@ -6,38 +6,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/2/29.
+ * Created by mangocandy on 16-2-29.
  */
 public class Baoxiu {
-    String title;
-    String time;
+    String xiaoqu;
+    String dizhi;
+    String num;
     String text;
-    int dianzan;
-    int liuyan;
+    int type;
     List<Bitmap> bitmaps=new ArrayList<>();
 
-    public List<Bitmap> getBitmaps() {
-        return bitmaps;
+    public String getXiaoqu() {
+        return xiaoqu;
     }
 
-    public void setBitmaps(List<Bitmap> bitmaps) {
-        this.bitmaps = bitmaps;
+    public void setXiaoqu(String xiaoqu) {
+        this.xiaoqu = xiaoqu;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDizhi() {
+        return dizhi;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDizhi(String dizhi) {
+        this.dizhi = dizhi;
     }
 
-    public String getTime() {
-        return time;
+    public String getNum() {
+        return num;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setNum(String num) {
+        this.num = num;
     }
 
     public String getText() {
@@ -48,19 +48,19 @@ public class Baoxiu {
         this.text = text;
     }
 
-    public int getDianzan() {
-        return dianzan;
+    public int getType() {
+        return type;
     }
 
-    public void setDianzan(int dianzan) {
-        this.dianzan = dianzan;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public int getLiuyan() {
-        return liuyan;
+    public List<Bitmap> getBitmaps() {
+        return bitmaps;
     }
 
-    public void setLiuyan(int liuyan) {
-        this.liuyan = liuyan;
+    public void setBitmaps(List<Bitmap> bitmaps) {
+        this.bitmaps = bitmaps;
     }
 }
