@@ -1,8 +1,5 @@
 package com.ydwj.Service.BaoXiu;
 
-import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,16 +7,14 @@ import android.view.View;
 
 import com.ydwj.community.R;
 
-public class Act_BaoXiu extends AppCompatActivity {
-    ViewPager viewPager;
-    TabLayout tabLayout;
+public class Act_AddBaoxiu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bao_xiu);
+        setContentView(R.layout.activity_add_baoxiu);
+
         initToolbar();
-        initView();
     }
 
     public void initToolbar(){
@@ -35,16 +30,8 @@ public class Act_BaoXiu extends AppCompatActivity {
         });
     }
 
-    public void initView(){
-        tabLayout=(TabLayout)findViewById(R.id.tabs);
-        viewPager=(ViewPager)findViewById(R.id.viewpger);
-        Adapter_Baoxiu adapter_baoxiu=new Adapter_Baoxiu(this,getSupportFragmentManager());
-        viewPager.setAdapter(adapter_baoxiu);
-        tabLayout.setupWithViewPager(viewPager);
-    }
+    public void baoxiu(View view) {
 
-    public void addbaoxiu(View view) {
-        Intent intent=new Intent(this,Act_AddBaoxiu.class);
-        startActivity(intent);
+
     }
 }

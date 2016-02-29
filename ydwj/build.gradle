@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId 'com.ydwj.community'
         minSdkVersion 9
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0.1"
     }
@@ -46,4 +46,8 @@ allprojects {
             url "https://jitpack.io"
         }
     }
+}
+dependencies {
+    compile 'com.android.support:support-v4:23.+'
+    compile 'com.android.support:recyclerview-v7:23.+'
 }
