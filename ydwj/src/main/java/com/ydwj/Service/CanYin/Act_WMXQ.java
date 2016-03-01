@@ -1,30 +1,29 @@
-package com.ydwj.Service.Shopping;
+package com.ydwj.Service.CanYin;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ydwj.MUtils.MUtils;
+import com.ydwj.Service.Shopping.Act_Shopcar;
 import com.ydwj.Ziliao;
 import com.ydwj.bean.ShopCarList;
 import com.ydwj.community.R;
 
-public class Act_SPXQ extends AppCompatActivity {
+public class Act_WMXQ extends AppCompatActivity {
     EditText num;
     TextView name;
     TextView price;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act__spxq);
+        setContentView(R.layout.activity_wmxq);
         initToolbar();
         initView();
     }
@@ -46,10 +45,12 @@ public class Act_SPXQ extends AppCompatActivity {
         num=(EditText)findViewById(R.id.num);
         name=(TextView)findViewById(R.id.name);
         price=(TextView)findViewById(R.id.price);
+        imageView=(ImageView)findViewById(R.id.img);
     }
 
     public void tianjia(View view) {
         ShopCarList shopCarList=new ShopCarList();
+        shopCarList.setBitmap(imageView.getDrawable());
         shopCarList.setNum(num.getText().toString());
         shopCarList.setName(name.getText().toString());
         shopCarList.setPrice(price.getText().toString().replaceAll("￥",""));
@@ -60,6 +61,7 @@ public class Act_SPXQ extends AppCompatActivity {
     public void gouwu(View view) {
         ShopCarList shopCarList=new ShopCarList();
         shopCarList.setNum(num.getText().toString());
+        shopCarList.setBitmap(imageView.getDrawable());
         shopCarList.setName("");
         shopCarList.setPrice(price.getText().toString().replaceAll("￥",""));
         shopCarList.setName(name.getText().toString());

@@ -124,10 +124,22 @@
             android:name="com.ydwj.Service.Shopping.Act_Shopping"
             android:theme="@style/myTheme" />
         <activity
+            android:name="com.ydwj.Service.CanYin.Act_CanYin"
+            android:theme="@style/myTheme" />
+        <activity
+            android:name="com.ydwj.Service.CanYin.Act_Cantin_sp"
+            android:theme="@style/myTheme" />
+        <activity
+            android:name="com.ydwj.Service.CanYin.Act_WMXQ"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/myTheme" />
+        <activity
             android:name="com.ydwj.Service.Shopping.Act_ShopSp"
             android:theme="@style/myTheme" />
-        <activity android:name="com.ydwj.Service.Shopping.Act_SPXQ"
-            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name="com.ydwj.Service.Shopping.Act_SPXQ"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.ydwj.Service.Shopping.Act_Shopcar"></activity>
     </application>
 
 </manifest>

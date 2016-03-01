@@ -3,6 +3,7 @@ package com.ydwj;
 import com.ydwj.bean.Baoxiu;
 import com.ydwj.bean.Baoxiu_List;
 import com.ydwj.bean.Market;
+import com.ydwj.bean.ShopCarList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,5 +18,9 @@ public class Ziliao {
     }
 
     public static List<Market> markets=new ArrayList<>();
+
+    public static List<ShopCarList> shopCarLists_READY=new ArrayList<>();
+    public static List<ShopCarList> shopCarLists_DONE=new ArrayList<>();
+    public static List<ShopCarList> shopCarLists=new ArrayList<>();
 
 }

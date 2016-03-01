@@ -28,7 +28,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:padding="20dp"
-            android:text="商家电话：15111225564"
+            android:text="预约电话：15111225564"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />

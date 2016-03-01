@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.ydwj.News.ShowNews;
 import com.ydwj.Service.BaoXiu.Act_BaoXiu;
+import com.ydwj.Service.CanYin.Act_CanYin;
 import com.ydwj.Service.Gonggao.Act_GongGao;
 import com.ydwj.Service.Shopping.Act_Shopping;
 import com.ydwj.community.R;
@@ -24,8 +25,8 @@ import com.ydwj.community.R;
  * Created by Administrator on 2016/2/24.
  */
 public class Adapter_buttongroup extends RecyclerView.Adapter<Adapter_buttongroup.mViewHolder> {
-    String[] buttontexts={"社区公告","物业报修","商超服务","社区医疗","餐饮服务","敬请期待"};
-    int[] images={R.mipmap.bt_gg,R.mipmap.bt_bx,R.mipmap.bt_sc,R.mipmap.bt_yl,R.mipmap.bt_cy,0};
+    String[] buttontexts={"社区公告","物业报修","商超服务","餐饮服务","敬请期待"};
+    int[] images={R.mipmap.bt_gg,R.mipmap.bt_bx,R.mipmap.bt_sc,R.mipmap.bt_cy,0};
     Context context;
     @Override
     public mViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,12 +53,12 @@ public class Adapter_buttongroup extends RecyclerView.Adapter<Adapter_buttongrou
                     case 2://商超
                         intent=new Intent(context, Act_Shopping.class);
                         break;
-                    case 3://医疗
+                    case 4://医疗
                         intent=new Intent(context, ShowNews.class);
                         intent.putExtra("url","http://www.haodf.com/");
                         break;
-                    case 4://公告
-                        intent=new Intent(context, Act_GongGao.class);
+                    case 3://公告
+                        intent=new Intent(context, Act_CanYin.class);
                         break;
 
                 }

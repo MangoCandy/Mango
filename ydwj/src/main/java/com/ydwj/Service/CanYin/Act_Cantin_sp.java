@@ -1,18 +1,18 @@
-package com.ydwj.Service.Shopping;
+package com.ydwj.Service.CanYin;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 
+import com.ydwj.Service.Shopping.Adapter_SP;
 import com.ydwj.community.R;
 
-public class Act_ShopSp extends AppCompatActivity {
+public class Act_Cantin_sp extends AppCompatActivity {
     String name;
     RecyclerView recyclerView;
     @Override
@@ -44,7 +44,7 @@ public class Act_ShopSp extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.goods);
         recyclerView.setFocusable(false);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        recyclerView.setAdapter(new Adapter_SP());
+        recyclerView.setAdapter(new Adapter_canyin_SP());
     }
 
     public void call(View view) {
