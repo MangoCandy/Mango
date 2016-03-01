@@ -53,7 +53,7 @@
             android:name=".WellcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@style/myTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -114,8 +114,20 @@
         <activity
             android:name="com.ydwj.Service.BaoXiu.Act_BaoXiu"
             android:theme="@style/myTheme" />
-        <activity android:name="com.ydwj.Service.BaoXiu.Act_AddBaoxiu"
-            android:theme="@style/myTheme"/>
+        <activity
+            android:name="com.ydwj.Service.BaoXiu.Act_AddBaoxiu"
+            android:theme="@style/myTheme" />
+        <activity
+            android:name="com.ydwj.Service.BaoXiu.Act_Baoxiu_xx"
+            android:theme="@style/myTheme" />
+        <activity
+            android:name="com.ydwj.Service.Shopping.Act_Shopping"
+            android:theme="@style/myTheme" />
+        <activity
+            android:name="com.ydwj.Service.Shopping.Act_ShopSp"
+            android:theme="@style/myTheme" />
+        <activity android:name="com.ydwj.Service.Shopping.Act_SPXQ"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

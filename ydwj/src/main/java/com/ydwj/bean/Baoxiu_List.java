@@ -14,6 +14,16 @@ public class Baoxiu_List {
     String text;
     int dianzan;
     int liuyan;
+    int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     List<Bitmap> bitmaps=new ArrayList<>();
 
     public List<Bitmap> getBitmaps() {

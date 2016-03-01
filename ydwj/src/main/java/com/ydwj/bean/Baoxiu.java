@@ -14,6 +14,16 @@ public class Baoxiu {
     String num;
     String text;
     int type;
+    String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     List<Bitmap> bitmaps=new ArrayList<>();
 
     public String getXiaoqu() {

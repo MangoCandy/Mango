@@ -29,9 +29,12 @@ import com.android.volley.toolbox.Volley;
 import com.ydwj.MUtils.MUtils;
 import com.ydwj.Ziliao;
 import com.ydwj.bean.Baoxiu;
+import com.ydwj.bean.Baoxiu_List;
 import com.ydwj.community.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,12 +91,30 @@ public class Act_AddBaoxiu extends AppCompatActivity {
 
     public void baoxiu(View view) {
         if(checkDate()){
+            Date date=new Date();
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm ss");
+
             Baoxiu baoxiu=new Baoxiu();
+            baoxiu.setXiaoqu(xiaoqu.getText().toString());
             baoxiu.setDizhi(dizhi.getText().toString());
             baoxiu.setNum(num.getText().toString());
             baoxiu.setType(type);
             baoxiu.setText(text.getText().toString());
+            baoxiu.setDate(simpleDateFormat.format(date));
+            baoxiu.setBitmaps(bitmaps);
             Ziliao.baoxius.add(baoxiu);
+
+            Baoxiu_List baoxiu_list=new Baoxiu_List();
+            baoxiu_list.setType(type);
+            baoxiu_list.setLiuyan(0);
+            baoxiu_list.setText(baoxiu.getText());
+            baoxiu_list.setTitle(baoxiu.getDizhi());
+            baoxiu_list.setBitmaps(bitmaps);
+            baoxiu_list.setTime(simpleDateFormat.format(date));
+            Ziliao.baoxiu_lists.add(baoxiu_list);
+            Toast.makeText(context,"提交成功",Toast.LENGTH_SHORT).show();
+            finish();
+
         }else{
             Toast.makeText(context,"信息填写不全",Toast.LENGTH_SHORT).show();
         }
@@ -118,7 +139,7 @@ public class Act_AddBaoxiu extends AppCompatActivity {
         if(text.getText().length()<1){
             return false;
         }
-        return false;
+        return true;
     }
     public void addimage(View view) {
         getBycamera();

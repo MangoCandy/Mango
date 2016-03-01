@@ -14,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ydwj.News.ShowNews;
 import com.ydwj.Service.BaoXiu.Act_BaoXiu;
 import com.ydwj.Service.Gonggao.Act_GongGao;
+import com.ydwj.Service.Shopping.Act_Shopping;
 import com.ydwj.community.R;
 
 /**
@@ -47,16 +49,14 @@ public class Adapter_buttongroup extends RecyclerView.Adapter<Adapter_buttongrou
                     case 1://社区报修
                         intent=new Intent(context, Act_BaoXiu.class);
                         break;
-                    case 3://公告
-                        intent=new Intent(context, Act_GongGao.class);
+                    case 2://商超
+                        intent=new Intent(context, Act_Shopping.class);
+                        break;
+                    case 3://医疗
+                        intent=new Intent(context, ShowNews.class);
+                        intent.putExtra("url","http://www.haodf.com/");
                         break;
                     case 4://公告
-                        intent=new Intent(context, Act_GongGao.class);
-                        break;
-                    case 5://公告
-                        intent=new Intent(context, Act_GongGao.class);
-                        break;
-                    case 6://公告
                         intent=new Intent(context, Act_GongGao.class);
                         break;
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ydwj.Ziliao;
@@ -30,6 +31,7 @@ public class Frg_BaoXiu extends Fragment {
     List<Baoxiu_List> baoxius=new ArrayList<>();
     Context context=getContext();
     TextView nothing;
+    LinearLayout imagegroup;
     int tp;
     public static Frg_BaoXiu newInstance(String type){
         Frg_BaoXiu frg_baoXiu=new Frg_BaoXiu();
@@ -64,19 +66,26 @@ public class Frg_BaoXiu extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        baoxius.clear();
+        initView();
+    }
+
     public void initView(){
         nothing=(TextView)view.findViewById(R.id.nothing);
 
         listview=(RecyclerView)view.findViewById(R.id.listview);
         listview.setLayoutManager(new LinearLayoutManager(context));
         adapter_baoxiu_list=new Adapter_baoxiu_list(baoxius);
-        listview.setAdapter(adapter_baoxiu_list);
-
-        for(Baoxiu baoxiu: Ziliao.baoxius){
-            if(baoxiu.getType()==tp){
-
+        for(Baoxiu_List baoxiu_list:Ziliao.baoxiu_lists){
+            if(baoxiu_list.getType()==tp){
+                baoxius.add(baoxiu_list);
             }
         }
+        listview.setAdapter(adapter_baoxiu_list);
+        notifylist();
     }
 
     public void notifylist(){
